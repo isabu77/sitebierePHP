@@ -29,8 +29,8 @@
       <p class='text-justify col-md-10 offset-md-1 offset-sm-2' ><?= substr((String)$beerArray[$i][2],0,150) . '...';  ?></p>
       <div class = row>
       <h3 class='col-md-8 text-center font-weight-bold' id='<?= $i; ?>'><?=(String)number_format($beerArray[$i][3]*1.2,2,',',' ') . '€';?></h3>
-<!--       <button onclick= retirebiere(this) class="col-md-1 text-center font-weight-bold">-</button>
- -->  <button onclick= ajoutbiere(this,<?=$beerArray[$i][3]*1.2?>) class="col-md-1 text-center font-weight-bold">+</button>
+      <button onclick= retirebiere(this,<?=$beerArray[$i][3]*1.2?>) class="col-md-1 text-center font-weight-bold">-</button>
+  <button onclick= ajoutbiere(this,<?=$beerArray[$i][3]*1.2?>) class="col-md-1 text-center font-weight-bold">+</button>
 <!--       <input type="input" class='' name="" value='<?=$beerArray[$i][3]*1.2;?>  '>
  -->      </div>
      </article>
@@ -45,7 +45,7 @@
 
 function ajoutbiere(elt,tab){
   
-  var prevelt = elt.previousElementSibling; //.previousElementSibling;
+  var prevelt = elt.previousElementSibling.previousElementSibling;
   var strprix = prevelt.innerHTML.substring(0, prevelt.innerHTML.length-1);
   strprix = strprix.replace(',', '.');
   var prix = parseFloat(strprix);
@@ -54,17 +54,18 @@ function ajoutbiere(elt,tab){
   prevelt.innerHTML = prix.toFixed(2).toString().replace('.', ',') + '€';
 }
 
-function retirebiere($elt){
+function retirebiere(elt, tab){
   
   var prevelt = elt.previousElementSibling;
   var strprix = prevelt.innerHTML.substring(0, prevelt.innerHTML.length-1);
   strprix = strprix.replace(',', '.');
   var prix = parseFloat(strprix);
-  prix -= prix;
+  var prixttc = parseFloat(tab);
+  prix -= prixttc;
   if (prix < 0){
     prix = 0;
   }
-  prevelt.innerHTML = "" + prix.toFixed(2).toString().replace('.', ',') + '€';
+  prevelt.innerHTML = prix.toFixed(2).toString().replace('.', ',') + '€';
 }
 </script>
 </html>
