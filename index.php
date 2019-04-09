@@ -18,8 +18,12 @@
   
   <header class="row">
     <h1 class='col-12 rounded text-white text-center bg-info col-md-12'>Les bières</h1>
-  </header>
+     
+ </header>
 
+    <a href="boncommande.php">
+        <input type = "button" value = "J'en veux !" class="col-6 col-md-6 offset-md-3 text-center font-weight-bold">
+    </a>
   <section class = 'row'>
 
 <?php  for ($i=0; $i < count($beerArray) ; $i++):?>
@@ -35,7 +39,6 @@
  -->      </div>
      </article>
 <?php  endfor; ?>
-
   </section>
 
 </div>
