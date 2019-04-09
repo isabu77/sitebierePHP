@@ -39,11 +39,22 @@ if ($submited){
         ){
 
         // concaténer prénom et nom pour l'afficher avec Bonjour
-        $identite = $_GET['prenom'] . ' ' . $_GET['nom'];
+        $identite = strtoupper($_GET['prenom'] . ' ' . $_GET['nom']);
         $titre =  "Bonjour " . $identite . ' !';
 
         // composition de l'adresse
-        $phrase = 'Vous habitez ';
+        $address = "";
+        if(isset($_GET["numero"])){
+          $address .= $_GET["numero"].' ';
+        }
+        if(isset($_GET["voie"])){
+          $address .= $typeVoies[$_GET["voie"]].' ';
+        }
+        $address .= ucfirst($_GET["rue"]);
+        $ville = $_GET["cp"]." ".ucfirst($_GET["ville"]);
+        $phrase = "Bonjour, {$identite} vous habitez le {$address} à {$ville}";
+
+/*        $phrase = 'Vous habitez ';
         if (isset($_GET['numero'])){
             $phrase = $phrase . 'le ' . $_GET['numero'] . ' ';
         }
@@ -56,7 +67,7 @@ if ($submited){
 
         // la phrase 
         $phrase = $phrase .  $_GET['rue'] . ' à ' . $_GET['ville']. '<br />';
-        
+*/        
     }
     else{
         // TODO : gérer les erreurs de saisie
@@ -112,14 +123,26 @@ else{
   <section id = "section1" class='container'>
     <!-- Formulaire client avec envoi sur soi-meme en mode GET -->
     <form action="" method="get" class = 'col-md-12'>
-          <div class = "row mb-2">
-          <input type="text" name="nom" placeholder="*Nom" required class="col-md-5 offset-md-1">
-          <input type="text" name="prenom" placeholder="*Prénom" required class="col-md-5 offset-md-1">
+          <div class = "mb-2 form-group">
+            <label for="prenom" class="col-md-6">Prénom</label>
+            <input type="text" name="prenom" placeholder="*Prénom" required class="col-md-6" value='<?php echo isset($_GET["prenom"]) ? $_GET["prenom"]:''; ?>'>
           </div>
-          <div class = "row mb-2">
-          <input type="text" name="numero" placeholder="N°" class="col-md-1 offset-md-1">
-          <input type="text" name="voie" placeholder="Type de voie" class="col-md-3 offset-md-1">
-          <input type="text" name="rue" placeholder="*Rue" class="col-md-5 offset-md-1">
+
+          <div class = "mb-2 form-group">
+            <label for="nom" class="col-md-6">Nom</label>
+            <input type="text" name="nom" placeholder="*Nom" required class="form-control col-md-6">
+          </div>
+
+          <div class="form-group" class = "mb-2">
+            <input type="text" name="numero" placeholder="N°" class="col-md-1 offset-md-1">
+            <label for="voie">type de voie</label>
+            <select class="form-control" name="voie" id="voie">
+              <?php foreach ($typeVoies as $key => $value) {
+                echo "<option value=\"".$key."\">".$value."</option>";
+              }
+            ?>
+            </select>
+            <input type="text" name="rue" placeholder="*Nom de la rue" class="col-md-5 offset-md-1">
           </div>
           
           <div class = "row mb-2">
