@@ -38,8 +38,8 @@ if(!empty($_POST)){
 					$sql = 'INSERT INTO `users` (`name`, `email`,`password`) VALUES (:name, :email, :password)';
 					$statement = $pdo->prepare($sql);
 					$result = $statement->execute([
-										':email' => $username, 
-										':name' => $email, 
+										':email' => $email, 
+										':name' => $username, 
 										':password' => $password]);
 					if ($result){
 						// connexion directe

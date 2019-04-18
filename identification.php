@@ -68,7 +68,7 @@ if(!empty($_POST)){
 					<h2>Identification</h2>
 				</header>
 				<form action="" method="Post">
-					<input <?= $errusername ?> type="text" name="email" placeholder="Adresse mail"  />
+					<input <?= $errusername ?> type="email" name="email" placeholder="Adresse mail"  />
 					<input <?= $errpassword ?> type="password" name="password" placeholder="Mot de passe"  />
 					<button type="submit">Connexion</button>
 				</form>
