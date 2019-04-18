@@ -26,17 +26,22 @@ function retirebiere(elt, tab){
 }
 
 // la fonction  quantitebiere() lancée au changement de la qantité commandée 
-function quantitebiere(elt,tab){
+function quantitebiere(elt, id, prixHt, origin){
   // récupérer l'élément parent de l'input quantité = la cellule en colonne
-  var eltcol = elt.parentNode;
+  //var eltcol = elt.parentNode;
   // récupérer l'élément précédent de cette cellule : le prix TTC
-  var eltTTC = eltcol.previousElementSibling;
+  //var eltTTC = eltcol.previousElementSibling;
   // récupérer encore l'élément précédent : le prix HT 
-  var eltHT = eltTTC.previousElementSibling;
-
+  //var eltHT = eltTTC.previousElementSibling;
   // les inputs enfants des 2 cellules prixHT et prixTTC :
-  eltHT = eltHT.childNodes[0];
-  eltTTC = eltTTC.childNodes[0];
+  //eltHT = eltHT.childNodes[0];
+  //eltTTC = eltTTC.childNodes[0];
+
+  //--------------------- plus sur : utiliser les ids par ligne (celui de la table sql)
+  var idht="ht"+origin+id;
+  var idttc="ttc"+origin+id;
+  var eltHT = document.getElementById(idht); //elt.previousElementSibling;
+   var eltTTC = document.getElementById(idttc); //elt.previousElementSibling;
 
  // prix HT : enleve le signe euro
   var strprixHT = eltHT.value.substring(0, eltHT.value.length-1);
@@ -53,7 +58,7 @@ function quantitebiere(elt,tab){
   var prixTTC = parseFloat(strprixTTC);
 
   // le prix HT unitaire est dans le tableau original passé en paramètre :
-  var prixUnitaireHT = parseFloat(tab);
+  var prixUnitaireHT = prixHt;
 
   // calcul des prix avec la quantité saisie :
   if (parseInt(elt.value) === 0){

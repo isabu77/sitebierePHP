@@ -1,4 +1,7 @@
-﻿<?php include("array_php.php")?>
+﻿<?php require_once 'db.php';
+// vérif connecté
+require 'connect.php';
+?>
 
             <!-- PHP : traitement des paramètres GET  dans l'url -->
 <?php
@@ -23,8 +26,8 @@ if ($submited){
       $quantite = $_GET['quantite'][$i];
       if ( $quantite > 0){
         // on utilise le tableau initial beerArray pour avoir le prix unitaire de la bière
-          $prixTotalHT += $beerArray[$i][3]*$quantite;
-          $prixTotalTTC += $beerArray[$i][3]*$quantite*1.2;
+          $prixTotalHT += $beerArray[$i][4]*$quantite;
+          $prixTotalTTC += $beerArray[$i][4]*$quantite*1.2;
           $quantiteTotal += $quantite;
       }
 
@@ -54,20 +57,7 @@ if ($submited){
         $ville = $_GET["cp"]." ".ucfirst($_GET["ville"]);
         $phrase = "Bonjour, {$identite} vous habitez le {$address} à {$ville}";
 
-/*        $phrase = 'Vous habitez ';
-        if (isset($_GET['numero'])){
-            $phrase = $phrase . 'le ' . $_GET['numero'] . ' ';
-        }
-        if (isset($_GET['voie'])){
-            $phrase = $phrase .  ' ' . $_GET['voie'] . ' ';
-        }
-        else{
-            $phrase = $phrase .  ' rue ';
-        }
-
-        // la phrase 
-        $phrase = $phrase .  $_GET['rue'] . ' à ' . $_GET['ville']. '<br />';
-*/        
+  
     }
     else{
         // TODO : gérer les erreurs de saisie
@@ -106,8 +96,8 @@ else{
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!--   PAS DE STYLE pour l'instant, on utilise BOOTSTRAP 
-  <link rel='stylesheet' href='style.css' />
  -->
+  <link rel='stylesheet' href='assets/css/style.css' />
 </head>
 
 <body>
@@ -115,6 +105,7 @@ else{
   
   <!-- LE HEADER : affichage du titre initial ou de Bonjour prénom nom ! -->
   <header class="row">
+    <h2 class='col-12 rounded text-white text-center bg-info col-md-12'>-----</h2>
     <h1 class='col-12 rounded text-white text-center bg-info col-md-12'><?=$titre?></h1>
   </header>
 
@@ -124,36 +115,29 @@ else{
     <!-- Formulaire client avec envoi sur soi-meme en mode GET -->
     <form action="" method="get" class = 'col-md-12'>
           <div class = "mb-2 form-group">
-            <label for="prenom" class="col-md-6">Prénom</label>
-            <input type="text" name="prenom" placeholder="*Prénom" required class="col-md-6" value='<?php echo isset($_GET["prenom"]) ? $_GET["prenom"]:''; ?>'>
+            <h2>Identification</h2>
           </div>
 
-          <div class = "mb-2 form-group">
-            <label for="nom" class="col-md-6">Nom</label>
-            <input type="text" name="nom" placeholder="*Nom" required class="form-control col-md-6">
+          <div class = "row mb-2 form-group">
+            <input type="text" name="prenom" placeholder="*Prénom" required class="form-control col-md-5 offset-md-1" value='<?php echo isset($_GET["prenom"]) ? $_GET["prenom"]:''; ?>'>
+            <input type="text" name="nom" placeholder="*Nom" required class="form-control col-md-5 offset-md-1">
           </div>
 
-          <div class="form-group" class = "mb-2">
-            <input type="text" name="numero" placeholder="N°" class="col-md-1 offset-md-1">
-            <label for="voie">type de voie</label>
-            <select class="form-control" name="voie" id="voie">
-              <?php foreach ($typeVoies as $key => $value) {
-                echo "<option value=\"".$key."\">".$value."</option>";
-              }
-            ?>
-            </select>
-            <input type="text" name="rue" placeholder="*Nom de la rue" class="col-md-5 offset-md-1">
+          <div class="row form-group" class = "mb-2">
+            <input type="text" name="numero" placeholder="N°" class="form-control col-md-1 offset-md-1">
+            <input type="text" name="rue" placeholder="*Nom de la rue" class="form-control col-md-8 offset-md-2">
           </div>
           
           <div class = "row mb-2">
-           <input type="text" name="cp" placeholder="*CP" required class="col-md-2 offset-md-1">
-          <input type="text" name="ville" placeholder="*Ville" required class="col-md-5 offset-md-1">
-          <input type="text" name="pays" placeholder="*Pays" required class="col-md-2 offset-md-1">
+            <input type="text" name="cp" placeholder="*CP" required class="form-control col-md-2 offset-md-1">
+            <input type="text" name="ville" placeholder="*Ville" required class="form-control col-md-5 offset-md-1">
+            <input type="text" name="pays" placeholder="*Pays" required class="form-control col-md-2 offset-md-1">
           </div>
           
           <div class = "row mb-2">
-           <input type="text" name="tél" placeholder="*Tél" required class="col-md-2 offset-md-1">
-          <input type="text" name="email" placeholder="*E-mail" required class="col-md-8 offset-md-1">
+            <input type="text" name="tél" placeholder="*Tél" required class="form-control col-md-2 offset-md-1">
+            <input type="text" name="email" placeholder="*E-mail" required class="form-control col-md-8 offset-md-1">
+            <input type="password" name="password" placeholder="*Mot de passe" required class="form-control col-md-8 offset-md-1">
           </div>
           <!-- TABLEAU DE COMMANDE -->
           <table class = 'col-md-10 offset-md-1' >
@@ -169,10 +153,10 @@ else{
             <tbody>
 <?php  for ($i=0; $i < count($beerArray) ; $i++):?>
               <tr class="row">
-                  <td class="col-md-4"><?= (String)$beerArray[$i][0]?></td> <!-- Nom bière-->
-                  <td class="col-md-2"><input readonly type="text" value="<?=(String)number_format($beerArray[$i][3],2,',',' ').'€';?>"></td> <!-- prix HT -->
-                  <td class="col-md-2"><input readonly type="text" value="<?=(String)number_format($beerArray[$i][3]*1.2,2,',',' ').'€';?>"></td> <!-- prix TTC-->
-                  <td class="col-md-4"><input type="number" name="quantite[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][3]?>);"></td> <!-- quantité-->
+                  <td class="col-md-4"><?= (String)$beerArray[$i][1]?></td> <!-- Nom bière-->
+                  <td class="col-md-2"><input readonly type="text" id="ht<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4],2,',',' ').'€';?>"></td> <!-- prix HT -->
+                  <td class="col-md-2"><input readonly type="text" id="ttc<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4]*1.2,2,',',' ').'€';?>"></td> <!-- prix TTC-->
+                  <td class="col-md-4"><input type="number" name="quantite[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][0]?>,<?= (String)$beerArray[$i][4]?>, '');"></td> <!-- quantité-->
               </tr>
 <?php  endfor; ?>
             </tbody>
@@ -182,7 +166,7 @@ else{
             <button type="submit" class="col-md-2 offset-md-6 mt-2">Envoyer</button>
           </div>
     </form>
-
+ 
   </section>
 <?php }else{ ?>
             <!-- SECOND APPEL : traitement des paramètres GET  dans l'url -->
@@ -216,9 +200,9 @@ else{
       if ( $quantite > 0){
 ?>
               <tr class="row">
-                  <td class="col-md-4"><?= (String)$beerArray[$i][0]?></td> <!-- Nom bière-->
-                  <td class="col-md-2"><?=(String)number_format($quantite*$beerArray[$i][3],2,',',' ').'€';?></td> <!-- prix HT -->
-                  <td class="col-md-2"><?=(String)number_format(1.2*$quantite*$beerArray[$i][3],2,',',' ').'€';?></td> <!-- prix TTC-->
+                  <td class="col-md-4"><?= (String)$beerArray[$i][1]?></td> <!-- Nom bière-->
+                  <td class="col-md-2"><?=(String)number_format($quantite*$beerArray[$i][4],2,',',' ').'€';?></td> <!-- prix HT -->
+                  <td class="col-md-2"><?=(String)number_format(1.2*$quantite*$beerArray[$i][4],2,',',' ').'€';?></td> <!-- prix TTC-->
                   <td class="col-md-4"><?=$quantite?></td> <!-- quantité-->
               </tr>
 <?php }
@@ -229,6 +213,23 @@ else{
 
 <?php } ?>
 </div>
+
+  <footer>
+ <!-- MENU  -->
+    <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
+      <ul class="row">
+        <li><a href="index.php">Les bières</a></li>
+        <li><a href="identification.php">S'identifier</a></li>
+        <li><a href="boncommande.php">Commander</a></li>
+        <li><a href="">Mes commandes</a></li>
+        <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
+       
+        <li class = "top"><a href="#home">Top</a></li>
+      </ul>
+      
+    </nav>
+    
+  </footer>
 
 <!-- SCRIPT JS : la fonction  quantitebiere() lancée au changement de la qantité commandée -->
   <script src="assets/js/functions.js"></script>

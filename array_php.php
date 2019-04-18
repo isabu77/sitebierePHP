@@ -1,5 +1,5 @@
 <?php
-$beerArray = [
+$beerArrayOrigin = [
 		[
 			'La Chouffe Blonde D\'ardenne',
 			'https://www.beerwulf.com/globalassets/catalog/beerwulf/beers/la-chouffe-blonde-d-ardenne_opt.png?h=500&rev=899257661',

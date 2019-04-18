@@ -1,0 +1,75 @@
+body{
+	font : 16px/1.4em'PT Sans', Sans-Serif;
+	color: #1c1c1c;
+	background-color: #d8d8d8;
+}
+
+/* le titre "Bon de commande" */
+
+h2{
+	font-family: 'PT Serif', Serif;
+	font-size:32px;
+	line-height: 1.4em;	
+	margin:0 0 .4em;
+	font-weight:bold;
+}
+
+/* layout */
+
+.container{
+	background-color: #fff;
+	position:relative;
+	margin:auto;  /* le centrer car position relative*/
+}
+
+input.coordonnees{
+	text-align: center;
+}
+/* header */
+
+header{
+	background: red;
+	text-align:center;
+}
+
+
+/* media queries */
+/* media qui a au moins 768 px de large 
+et seulement les ecrans*/
+@media only screen and (min-width: 768px){
+	/* le contenant */
+	.container{
+		position:relative;
+		width:768px;
+		margin:auto;  /* le centrer car position relative*/
+	}
+
+	a.to_nav{
+		display:none;  /* menu disparait du haut à droite */
+	}
+	
+	/* remonter le menu du bas  tout en haut */
+	#primary_nav{
+		position:absolute;
+		top: 5px;	/*à partir du haut */
+		right:10px; /* à partir de la droite */
+		background: none;
+	}
+	#primary_nav li{
+		display:inline; /* le mettre sur une ligne */
+	}
+
+	#primary_nav li a{
+		float:left; /* par rapport à la droite */
+		border:none;
+		padding: 0 10px; /* fait décaler le tout à droite */
+		border-radius: 2px; /* arrondi*/
+	}
+
+	#primary_nav li.top{
+		display:none;
+	}
+
+}
+
+

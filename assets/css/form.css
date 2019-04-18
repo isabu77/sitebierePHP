@@ -1,0 +1,79 @@
+/*------------------
+   Reset
+------------------*/
+
+html{
+	box-sizing: border-box;
+}
+
+*,*:before,*:after{
+	box-sizing: inherit;
+}
+
+body{
+	font-family: Helvetica, sans-serif;
+}
+
+/*------------------
+   Mise en page
+------------------*/
+
+section.login-container{
+	display: flex;
+	position: fixed;
+	top:0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(243,156,18,0.8);
+}
+
+section.login-container > div{
+	width: 450px;
+	margin: auto;
+	padding: 20px;
+	text-align: center;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+section.login-container form{
+	display: flex;
+	flex-direction: column;
+}
+
+form input[type="password"],
+form input[type="text"],
+form button[type="submit"]{
+	width: 100%;
+	margin-bottom: 32px;
+	padding: 16px;
+	color : #333;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	outline: 0;
+}
+
+form input[type="password"]:focus,
+form input[type="password"]:hover,
+form input[type="text"]:focus,
+form input[type="text"]:hover{
+	background-color: #ccc;
+}
+
+form button[type="submit"]{
+	font-weight: bold;
+	color: #eee;
+	text-transform: uppercase;
+	background-color: #e67e22;
+}
+
+form button[type="submit"]:focus,
+form button[type="submit"]:hover{
+	background-color: #d35400;
+}
+
+.danger{
+	border : 3px solid red !important;
+}
