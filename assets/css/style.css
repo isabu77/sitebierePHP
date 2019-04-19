@@ -1,32 +1,11 @@
 body{
-	font : 16px/1.4em'PT Sans', Sans-Serif;
+	font : 12px/1.4em'PT Sans', Sans-Serif;
 	color: #1c1c1c;
 	background-color: #d8d8d8;
 }
 
-p,ul{
-	margin: 0 0 1.5em;	/* marge en bas */
-}
-
-ul{
-	list-style: disc;		/* puces*/
-	padding:	0 0 0 20px; /* décalage du left */
-}
-
 a{
-	color:#1D7405;		/* vert */
-}
-
-h1{
-
-}
-
-h2{
-	font-family: 'PT Serif', Serif;
-	font-size:32px;
-	line-height: 1.4em;	
-	margin:0 0 .4em;
-	font-weight:bold;
+	color:#1D7405;		/* les liens en vert */
 }
 
 /* layout */
@@ -35,16 +14,10 @@ h2{
 	background-color: #fff;
 }
 
-article{
-	border-bottom:1px solid #d8d8d8;
-	padding: 10px 20px 0 20px; /* haut droite bas gauche */
-	margin: 10px 0; /* en haut et en bas */
-}
-
 /* header */
 
 header{
-	background: #1c1c1c;
+	background: #fff; /*#1c1c1c; anthracite */
 	padding: 15px 20px ; /* haut+bas droite+gauche */
 }
 
@@ -67,7 +40,7 @@ header{
 
 #primary_nav ul{
 	list-style:  none;
-	background: #1c1c1c;
+	background: rgba(243,156,18,0.8);
 	padding:5px 0; /* haut+bas et droite+gauche*/
 
 }
@@ -75,7 +48,7 @@ header{
 #primary_nav li a{
 	display: block;
 	padding: 0 20px; /* haut+bas et droite+gauche*/
-	color:#fff;
+	color:#fff;		/*couleur du texte : blanc */
 	text-decoration: none; /* pas de soulignement*/
 	text-transform: uppercase;
 	font-weight: bold;
@@ -83,10 +56,6 @@ header{
 	line-height: 2em;
 	height:2em;	/* hauteur du lien pour le clic */
 	border-bottom:1px solid #383838;
-}
-
-#primary_nav li:last-child a{
-	border-bottom:none; /* pas de bordure sur le dernier*/
 }
 
 /* inverser la couleur sur survol en ordi (hover) 
@@ -115,31 +84,6 @@ et seulement les ecrans*/
 		position:relative;
 		width:768px;
 		margin:auto;  /* le centrer car position relative*/
-	}
-
-	a.to_nav{
-		display:none;  /* menu disparait du haut à droite */
-	}
-	
-	/* remonter le menu du bas  tout en haut */
-	#primary_nav{
-		position:absolute;
-		top: 10px;	/*à partir du haut */
-		background: none;
-	}
-	#primary_nav li{
-		display:inline; /* le mettre sur une ligne */
-	}
-
-	#primary_nav li a{
-		float:left; /* par rapport à la droite */
-		border:none;
-		padding: 0 10px; /* fait décaler le tout à droite */
-		border-radius: 2px; /* arrondi*/
-	}
-
-	#primary_nav li.top{
-		display:none;
 	}
 
 }

@@ -141,7 +141,7 @@ else{
 </head>
 
 <body>
-<div>
+<div class='wrapper container'>
   
   <!-- LE HEADER : affichage du titre initial ou de Bonjour prénom nom ! -->
   <header class="row">
@@ -174,6 +174,16 @@ else{
   }
   ?>
   <!-- PREMIER AFFICHAGE : si pas de paramètre GET  dans l'url , on commande -->
+<!-- MENU  -->
+    <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
+      <ul class="row">
+        <li><a href="index.php">Les bières</a></li>
+        <li><a href="identification.php">S'identifier</a></li>
+        <li><a href="boncommande.php">Commander</a></li>
+        <li><a href="mescommandes.php">Mes commandes</a></li>
+        <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
+      </ul>
+    </nav>
   <section id = "section1" class='container'>
     <!-- Formulaire client avec envoi sur soi-meme en mode GET -->
     <form action="" method="get" class = 'col-md-12'>
@@ -205,30 +215,30 @@ else{
           <div class = "mb-2 form-group">
             <h2>Commande</h2>
           </div>
-          <table class = 'col-md-10 offset-md-1' >
+          <table class = 'col-12 col-md-10 offset-md-1' >
             <!-- entete du tableau de commande -->
             <thead>
               <tr class="row">
-                  <th class="col-md-4">Nom de la Bière</th> <!-- Nom bière-->
-                  <th class="col-md-2">prix HT</th> <!-- prix HT -->
-                  <th class="col-md-2">prix TTC</th> <!-- prix TTC-->
-                  <th class="col-md-4">Quantité</th> <!-- quantité-->
+                  <th class="col-4 ">Nom de la Bière</th> <!-- Nom bière-->
+                  <th class="col-2 ">prix HT</th> <!-- prix HT -->
+                  <th class="col-2">prix TTC</th> <!-- prix TTC-->
+                  <th class="col-2">Quantité</th> <!-- quantité-->
               </tr>
             </thead>
             <tbody>
 <?php  for ($i=0; $i < count($beerArray) ; $i++):?>
               <tr class="row">
-                  <td class="col-md-4"><?= (String)$beerArray[$i][1]?></td> <!-- Nom bière-->
-                  <td class="col-md-2"><input readonly type="text" id="ht<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4],2,',',' ').'€';?>"></td> <!-- prix HT -->
-                  <td class="col-md-2"><input readonly type="text" id="ttc<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4]*1.2,2,',',' ').'€';?>"></td> <!-- prix TTC-->
-                  <td class="col-md-4"><input type="number" name="quantite[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][0]?>,<?= (String)$beerArray[$i][4]?>, '');"></td> <!-- quantité-->
+                  <td class="col-4"><?= (String)$beerArray[$i][1]?></td> <!-- Nom bière-->
+                  <td class="col-2 "><input readonly type="text" id="ht<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4],2,',',' ').'€';?>"></td> <!-- prix HT -->
+                  <td class="col-2"><input readonly type="text" id="ttc<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4]*1.2,2,',',' ').'€';?>"></td> <!-- prix TTC-->
+                  <td class="col-2"><input type="number" name="quantite[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][0]?>,<?= (String)$beerArray[$i][4]?>, '');"></td> <!-- quantité-->
               </tr>
 <?php  endfor; ?>
             </tbody>
           </table>
           <div class = "row mt-4">
             <!-- Bouton pour envoyer le formulaire -->
-            <button type="submit" class="col-md-2 offset-md-6 mt-2">Envoyer</button>
+            <button type="submit" class="col-2 offset-8 col-md-2 offset-md-8 mt-2 mb-2">Envoyer</button>
           </div>
     </form>
  
@@ -236,25 +246,36 @@ else{
 <?php }else{ ?>
             <!-- SECOND AFFICHAGE : traitement des paramètres GET  dans l'url -->
             <!-- CONFIRMATION de la COMMANDE et ENREGISTREMENT en BASE de la commande -->
-    <h2 class='col-12 rounded text-white text-center bg-info col-md-8 offset-md-1'>Voici la confirmation de votre commande</h2>
+    <h2 class='col-12 rounded text-white text-center bg-info col-md-10 offset-md-1'>Voici la confirmation de votre commande</h2>
+<!-- MENU  -->
+    <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
+      <ul class="row">
+        <li><a href="index.php">Les bières</a></li>
+        <li><a href="identification.php">S'identifier</a></li>
+        <li><a href="boncommande.php">Commander</a></li>
+        <li><a href="mescommandes.php">Mes commandes</a></li>
+        <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
+      </ul>
+      
+    </nav>
 
     <table class = 'col-md-10 offset-md-1' >
     <!-- 1ere ligne : titre -->
     <thead>
       <tr class="row">
-          <th class="col-md-4">Nom de la Bière</th> <!-- Nom bière-->
-          <th class="col-md-2">prix HT</th> <!-- prix HT -->
-          <th class="col-md-2">prix TTC</th> <!-- prix TTC-->
-          <th class="col-md-4">Quantité</th> <!-- quantité-->
+          <th class="col-4">Nom de la Bière</th> <!-- Nom bière-->
+          <th class="col-2">prix HT</th> <!-- prix HT -->
+          <th class="col-2">prix TTC</th> <!-- prix TTC-->
+          <th class="col-4">Quantité</th> <!-- quantité-->
       </tr>
     </thead>
     <!-- derniere ligne : totaux -->
      <tfoot>
        <tr class="row">
-          <th class="col-md-4">TOTAL</th> <!-- Nom bière-->
-          <th class="col-md-2"><?= (String)number_format($prixTotalHT,2,',',' ').' €'?></th> <!-- prix HT -->
-          <th class="col-md-2"><?= (String)number_format($prixTotalTTC,2,',',' ').' €'?></th> <!-- prix TTC-->
-          <th class="col-md-4"><?= $quantiteTotal?></th> <!-- quantité-->
+          <th class="col-4">TOTAL</th> <!-- Nom bière-->
+          <th class="col-2"><?= (String)number_format($prixTotalHT,2,',',' ').' €'?></th> <!-- prix HT -->
+          <th class="col-2"><?= (String)number_format($prixTotalTTC,2,',',' ').' €'?></th> <!-- prix TTC-->
+          <th class="col-4"><?= $quantiteTotal?></th> <!-- quantité-->
       </tr>
      
     </tfoot>
@@ -265,35 +286,21 @@ else{
       if ( $quantite > 0){
 ?>
     <tr class="row">
-        <td class="col-md-4"><?= (String)$beerArray[$i][1]?></td> <!-- Nom bière-->
-        <td class="col-md-2"><?=(String)number_format($quantite*$beerArray[$i][4],2,',',' ').'€';?></td> <!-- prix HT -->
-        <td class="col-md-2"><?=(String)number_format(1.2*$quantite*$beerArray[$i][4],2,',',' ').'€';?></td> <!-- prix TTC-->
-        <td class="col-md-4"><?=$quantite?></td> <!-- quantité-->
+        <td class="col-4"><?= (String)$beerArray[$i][1]?></td> <!-- Nom bière-->
+        <td class="col-2"><?=(String)number_format($quantite*$beerArray[$i][4],2,',',' ').'€';?></td> <!-- prix HT -->
+        <td class="col-2"><?=(String)number_format(1.2*$quantite*$beerArray[$i][4],2,',',' ').'€';?></td> <!-- prix TTC-->
+        <td class="col-4"><?=$quantite?></td> <!-- quantité-->
     </tr>
 <?php }
       endfor; ?>
     </tbody>
   </table>
-  <a class="col-md-2 offset-md-6 mt-2"href="boncommande.php">J'en veux encore !</a>
 
 <?php } ?>
 </div>
 
   <footer>
- <!-- MENU  -->
-    <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
-      <ul class="row">
-        <li><a href="index.php">Les bières</a></li>
-        <li><a href="identification.php">S'identifier</a></li>
-        <li><a href="boncommande.php">Commander</a></li>
-        <li><a href="mescommandes.php">Mes commandes</a></li>
-        <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
-       
-        <li class = "top"><a href="#home">Top</a></li>
-      </ul>
-      
-    </nav>
-    
+     
   </footer>
 
 <!-- SCRIPT JS : la fonction  quantitebiere() lancée au changement de la qantité commandée -->

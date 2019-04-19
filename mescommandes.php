@@ -38,23 +38,33 @@ require 'connect.php';
 </head>
 
 <body>
-<div>
+<div class='wrapper container'>
   
   <!-- LE HEADER : affichage du titre initial ou de Bonjour prénom nom ! -->
   <header class="row">
     <h2 class='col-12 rounded text-white text-center bg-info col-md-12'></h2>
-    <h2 class='col-12 rounded text-white text-center bg-info col-md-8 offset-md-1'>Voici vos commandes :</h2>
+    <h2 class='col-12 rounded text-white text-center bg-info col-md-8 offset-md-1'><?= $user["prenom"]?>, voici vos commandes :</h2>
 <!--     <h1 class='col-12 rounded text-white text-center bg-info col-md-12'><?=$titre?></h1>
- -->  </header>
+ -->  
+  </header>
 
+ <!-- MENU  -->
+    <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
+      <ul class="row">
+        <li><a href="index.php">Les bières</a></li>
+        <li><a href="identification.php">S'identifier</a></li>
+        <li><a href="boncommande.php">Commander</a></li>
+         <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
+      </ul>
+    </nav>
 
-    <table class = 'col-md-10 offset-md-1' >
+    <table class = 'col-10 offset-1 col-md-10 offset-md-1' >
     <!-- 1ere ligne : titre -->
     <thead>
       <tr class="row">
-          <th class="col-md-2 offset-md-1">N° commande</th> 
-          <th class="col-md-2 offset-md-2">Nb produits</th> 
-          <th class="col-md-2 offset-md-2">Prix total</th> 
+          <th class="col-2 offset-1 col-md-2 offset-md-1">N° commande</th> 
+          <th class="col-2 offset-2 col-md-2 offset-md-2">Nb produits</th> 
+          <th class="col-4 offset-1 col-md-2 offset-md-2">Prix total</th> 
       </tr>
     </thead>
     <!-- derniere ligne : total -->
@@ -67,38 +77,20 @@ require 'connect.php';
       // tableau des ids produits
       $idProds = unserialize($commande['idsproduits']);
       echo '<tr class="row">';
-      echo '<th class="col-md-2 offset-md-1">'. $commande['id'] . '</th>';
-      echo '<th class="col-md-2 offset-md-2">' . count($idProds) . '</th> ';
-      echo '<th class="col-md-2 offset-md-2">' . (String)number_format($commande['prixttc'], 2,',',' ') . ' €</th> ';
+      echo '<th class="col-2 offset-1 col-md-2 offset-md-1">'. $commande['id'] . '</th>';
+      echo '<th class="col-2 offset-2 col-md-2 offset-md-2">' . count($idProds) . '</th> ';
+      echo '<th class="col-4 offset-1 col-md-2 offset-md-2">' . (String)number_format($commande['prixttc'], 2,',',' ') . ' €</th> ';
       echo '</tr>';
   }
 ?>    
     </tbody>
   </table>
-
-  <a class="col-md-2 offset-md-6 mt-2"href="boncommande.php">J'en veux encore !</a>
-
-
 </div>
 
   <footer>
- <!-- MENU  -->
-    <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
-      <ul class="row">
-        <li><a href="index.php">Les bières</a></li>
-        <li><a href="identification.php">S'identifier</a></li>
-        <li><a href="boncommande.php">Commander</a></li>
-         <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
-       
-        <li class = "top"><a href="#home">Top</a></li>
-      </ul>
-      
-    </nav>
     
   </footer>
 
-<!-- SCRIPT JS : la fonction  quantitebiere() lancée au changement de la qantité commandée -->
-  <script src="assets/js/functions.js"></script>
 </body>
 
 
