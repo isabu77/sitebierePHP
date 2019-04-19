@@ -118,7 +118,7 @@ if(!empty($_POST)){
 		            <input type="text" name="cp" placeholder="CP">
 		            <input type="text" name="ville" placeholder="Ville">
 		            <input type="text" name="pays" placeholder="Pays">
-		            <input type="text" name="tel" placeholder="Tél">
+		            <input type="tel" name="tel" placeholder="Tél">
 
 					<button type="submit">S'inscrire</button>
 				</form>

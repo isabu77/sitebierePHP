@@ -18,7 +18,8 @@ if ($submited){
     $prixTotalHT = 0.00;
     $prixTotalTTC = 0.00;
     $quantiteTotal = 0;
-
+    $tabIds = [];
+    $j = 0;
     //var_dump($_GET);
     // calcul des totaux du tableau avec le paramètre quantité[] de chaque ligne
     for( $i = 0 ; $i < count($_GET['quantite']) ; $i++){
@@ -28,14 +29,15 @@ if ($submited){
           $prixTotalHT += $beerArray[$i][4]*$quantite;
           $prixTotalTTC += $beerArray[$i][4]*$quantite*1.2;
           $quantiteTotal += $quantite;
+          $tabIds[$j++] = $beerArray[$i][0];
       }
 
     }
 
     // afficher la confirmation de commande
     if (($_GET['nom']) 
-        && ($_GET['prenom'])
-/*        && ($_GET['rue'])
+/*        && ($_GET['prenom'])
+        && ($_GET['rue'])
         && ($_GET['cp'])
         && ($_GET['ville'])
 */        ){
@@ -44,20 +46,61 @@ if ($submited){
         $identite = strtoupper($_GET['prenom'] . ' ' . $_GET['nom']);
         $titre =  "Bonjour " . $identite . ' !';
 
-        // composition de l'adresse
-        // $address = "";
-        // if(isset($_GET["numero"])){
-        //   $address .= $_GET["numero"].' ';
-        // }
-        // if(isset($_GET["voie"])){
-        //   $address .= $typeVoies[$_GET["voie"]].' ';
-        // }
-        // $address .= ucfirst($_GET["rue"]);
-        // $ville = $_GET["cp"]." ".ucfirst($_GET["ville"]);
-        // $phrase = "Bonjour, {$identite} vous habitez le {$address} à {$ville}";
+        // lecture du user dans la base pour le mettre à jour
+        $sql = "SELECT * FROM `users` WHERE `name` = '" . $username . "'";
+        $statement = $pdo->query($sql);
+        $user = $statement->fetch();
 
-  
-    }
+        if(!empty($user)){
+          $iduser = $user["id"];
+          $prenom = $_GET["prenom"];
+          $nom = $_GET["nom"];
+          $email = $_GET["email"];
+          $numero = $_GET["numero"];
+          $rue = $_GET["rue"];
+          $cp = $_GET["cp"];
+          $ville = $_GET["ville"];
+          $pays = $_GET["pays"];
+          $tel = $_GET["tel"];
+          // enregistrement de la commande dans la base
+          require_once 'db.php';
+          $serial = serialize($tabIds);
+
+          $sql = 'INSERT INTO `commandes` (`iduser`, `idsproduits`, `prixttc`) 
+                        VALUES (:iduser, :idsproduits, :prixttc)';
+          $statement = $pdo->prepare($sql);
+          $result = $statement->execute([
+                      ':iduser'  => $iduser, 
+                      ':idsproduits'   => $serial,
+                      ':prixttc' => $prixTotalTTC
+                       ]);
+          if (!$result){
+            // TODO signaler problème d'insertion
+            die("erreur enregistrement de la commande en base");
+          }
+          // modification des infos du user dans la base
+          $sql = 'UPDATE `users` SET `email` = :email, `name` = :name, `prenom`= :prenom, `numrue`= :numrue, `rue`=:rue,`codepostal`= :codepostal, `ville`= :ville, `pays`= :pays, `tel`= :tel WHERE `users`.`id` = :id ';
+              //var_dump($sql);die();
+          $statement = $pdo->prepare($sql);
+          $result = $statement->execute([
+                    ':email'  => $email, 
+                    ':name'   => $username,
+                    ':prenom'   => $prenom, 
+                    ':numrue'   => $numero, 
+                    ':rue'    => $rue, 
+                    ':codepostal' => $cp, 
+                    ':ville'  => $ville, 
+                    ':pays'   => $pays, 
+                    ':tel'    => $tel ,
+                    ':id'    => $iduser 
+                    ]);
+          if (!$result){
+            // TODO signaler problème d'insertion
+            die("erreur modification du user en base");
+          }
+
+          }
+        }
     else{
         // TODO : gérer les erreurs de saisie
         //var_dump($_GET);
@@ -114,6 +157,7 @@ else{
   $user = $statement->fetch();
 
   if(!empty($user)){
+    $iduser = $user["id"];
     $prenom = $user["prenom"];
     $email = $user["email"];
     $password = $user["password"];
@@ -150,7 +194,7 @@ else{
           </div>
           
           <div class = "row mb-2">
-            <input type="text" name="tél" value='<?= ($tel) ? $tel:''; ?>' placeholder="*Tél" required class="form-control col-md-2 offset-md-1">
+            <input type="tel" name="tel" value='<?= ($tel) ? $tel:''; ?>' placeholder="*Tél" required class="form-control col-md-2 offset-md-1">
             <input type="text" name="email" value='<?= ($email) ? $email:''; ?>' placeholder="*E-mail" required class="form-control col-md-8 offset-md-1">
           </div>
           <!-- TABLEAU DE COMMANDE -->
@@ -238,7 +282,7 @@ else{
         <li><a href="index.php">Les bières</a></li>
         <li><a href="identification.php">S'identifier</a></li>
         <li><a href="boncommande.php">Commander</a></li>
-        <li><a href="">Mes commandes</a></li>
+        <li><a href="mescommandes.php">Mes commandes</a></li>
         <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
        
         <li class = "top"><a href="#home">Top</a></li>
