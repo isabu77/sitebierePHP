@@ -49,9 +49,9 @@ else{
   	$statement = $pdo->query($sql);
  	$users = $statement->fetchAll();
   
-	// si pas de compte, ebnchainer sur l'inscription 
+	// si pas de compte, enchainer sur l'inscription 
 	if(empty($users)){
-		header("Location: login.php");
+		header("Location: inscription.php");
 		// FIN DU TRAITEMENT
 		exit();
 	}
@@ -80,7 +80,7 @@ else{
 					<input <?= $errpassword ?> type="password" name="password" placeholder="Mot de passe"  />
 					<button type="submit">Connexion</button>
 				</form>
-				<a href="login.php?deconnect=true">S'inscrire</a>
+				<a href="inscription.php?deconnect=true">S'inscrire</a>
 				<a href="index.php">Accueil</a>
 			</div>
 		</section>

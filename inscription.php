@@ -14,12 +14,19 @@ if($connect){
 	exit();
 }
 
+// traitement du formulaire d'inscription : ajout du compte dans la table users
 if(!empty($_POST)){
-	//$stock = require 'stock.php';
 	$username = strtolower($_POST["username"]);
+	$prenom = strtolower($_POST["prenom"]);
 	$email = strtolower($_POST["email"]);
 	$password = $_POST["password"];
 	$passwordVerif = $_POST["password_verif"];
+    $numero = $_POST["numero"];
+    $rue = $_POST["rue"];
+    $cp = $_POST["cp"];
+    $ville = $_POST["ville"];
+    $pays = $_POST["pays"];
+    $tel = $_POST["tel"];
 
 	if (!empty($username) && !empty($password) && !empty($email)){
 		require_once 'db.php';
@@ -28,21 +35,30 @@ if(!empty($_POST)){
 		$statement->execute([$username]);
 		$user = $statement->fetch();
 		if (!$user){
-				// vérifier la taille du password
+			// vérifier la taille du password
 			if (strlen($password) >= 5 && strlen($password) <= 10){
 				// vérifier le password
 				if ($password === $passwordVerif){
 					// insérer le user dans la base avec cryptage du password
 					$password = password_hash($password, PASSWORD_BCRYPT);
 					require_once 'db.php';
-					$sql = 'INSERT INTO `users` (`name`, `email`,`password`) VALUES (:name, :email, :password)';
+					$sql = 'INSERT INTO `users` (`email`, `name`, `password`, `prenom`,`numrue`,`rue`,`codepostal`,`ville`,`pays`,`tel`) 
+							VALUES (:email, :name, :password, :prenom,:numrue,:rue,:codepostal,:ville,:pays,:tel)';
 					$statement = $pdo->prepare($sql);
 					$result = $statement->execute([
-										':email' => $email, 
-										':name' => $username, 
-										':password' => $password]);
+										':email' 	=> $email, 
+										':name' 	=> $username,
+										':password' => $password, 
+										':prenom' 	=> $prenom, 
+										':numrue' 	=> $numero, 
+										':rue' 		=> $rue, 
+										':codepostal' => $cp, 
+										':ville' 	=> $ville, 
+										':pays' 	=> $pays, 
+										':tel' 		=> $tel 
+										]);
 					if ($result){
-						// connexion directe
+						// connexion directe et bon de commande
 						$_SESSION["connect"] = true;
 						$_SESSION["username"] = $username;
 						$_SESSION["email"] = $email;
@@ -91,10 +107,19 @@ if(!empty($_POST)){
 					<h1>Inscription</h1>
 				</header>
 				<form action="" method="Post">
-					<input  type="text" name="username" placeholder="Nom d'utilisateur"  />
-					<input  type="email" name="email" placeholder="Adresse mail"  />
-					<input  type="password" name="password" placeholder="Mot de passe"  />
-					<input  type="password" name="password_verif" placeholder="Confirmez le mot de passe"  />
+
+		            <input type="text" name="username" placeholder="*Nom" required>
+		            <input type="text" name="prenom" placeholder="*Prénom">
+		            <input type="text" name="email" placeholder="*E-mail" required>
+		            <input type="password" name="password" placeholder="*Mot de passe" required>
+					<input  type="password" name="password_verif" placeholder="*Confirmez le mot de passe"  />
+		            <input type="text" name="numero" placeholder="N°">
+		            <input type="text" name="rue" placeholder="Nom de la rue" >
+		            <input type="text" name="cp" placeholder="CP">
+		            <input type="text" name="ville" placeholder="Ville">
+		            <input type="text" name="pays" placeholder="Pays">
+		            <input type="text" name="tel" placeholder="Tél">
+
 					<button type="submit">S'inscrire</button>
 				</form>
 				<a href="index.php">Accueil</a>

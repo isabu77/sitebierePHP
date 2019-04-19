@@ -31,7 +31,7 @@ section.login-container{
 section.login-container > div{
 	width: 450px;
 	margin: auto;
-	padding: 20px;
+	padding: 10px;
 	text-align: center;
 	background: #fff;
 	border: 1px solid #ccc;
@@ -45,16 +45,19 @@ section.login-container form{
 
 form input[type="password"],
 form input[type="text"],
+form input[type="email"],
 form button[type="submit"]{
 	width: 100%;
-	margin-bottom: 32px;
-	padding: 16px;
+	margin-bottom: 5px;
+	padding: 5px;
 	color : #333;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	outline: 0;
 }
 
+form input[type="email"]:focus,
+form input[type="email"]:hover,
 form input[type="password"]:focus,
 form input[type="password"]:hover,
 form input[type="text"]:focus,
