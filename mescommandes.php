@@ -49,8 +49,9 @@ require 'connect.php';
     <!-- 1ere ligne : titre -->
     <thead>
       <tr class="row">
-          <th class="col-md-4">N° commande</th> 
-          <th class="col-md-6 offset-md-2">Nom des bières</th> 
+          <th class="col-md-2 offset-md-1">N° commande</th> 
+          <th class="col-md-2 offset-md-2">Nb produits</th> 
+          <th class="col-md-2 offset-md-2">Prix total</th> 
       </tr>
     </thead>
     <!-- derniere ligne : total -->
@@ -62,21 +63,11 @@ require 'connect.php';
   foreach ($commandes as $commande){
       // tableau des ids produits
       $idProds = unserialize($commande['idsproduits']);
-      for ($i=0; $i < count($idProds) ; $i++){
-        echo '<tr class="row">';
-        echo '<th class="col-md-4">'. $commande['id'] . '</th>';
-        // TODO : lire le nom de la bière dans la base
-
-        
-        echo '<th class="col-md-6 offset-md-2">' . $idProds[$i] . '</th> ';
-        echo '</tr>';
-      } 
-
       echo '<tr class="row">';
-      echo '<th class="col-md-4">TOTAL commande:</th>' ;
-      echo '<th class="col-md-2 offset-md-2">' . $commande['prixttc'] .' €' . '</th> ';
+      echo '<th class="col-md-2 offset-md-1">'. $commande['id'] . '</th>';
+      echo '<th class="col-md-2 offset-md-2">' . count($idProds) . '</th> ';
+      echo '<th class="col-md-2 offset-md-2">' . (String)number_format($commande['prixttc'], 2,',',' ') . ' €</th> ';
       echo '</tr>';
-
   }
 ?>    
     </tbody>
@@ -94,8 +85,7 @@ require 'connect.php';
         <li><a href="index.php">Les bières</a></li>
         <li><a href="identification.php">S'identifier</a></li>
         <li><a href="boncommande.php">Commander</a></li>
-        <li><a href="">Mes commandes</a></li>
-        <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
+         <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
        
         <li class = "top"><a href="#home">Top</a></li>
       </ul>

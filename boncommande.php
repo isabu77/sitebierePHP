@@ -168,6 +168,9 @@ else{
     $pays = $user["pays"];
     $tel = $user["tel"];
   }
+  else{
+    header("Location: identification.php");
+  }
   ?>
   <!-- PREMIER AFFICHAGE : si pas de paramètre GET  dans l'url , on commande -->
   <section id = "section1" class='container'>
