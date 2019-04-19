@@ -170,6 +170,7 @@ else{
   }
   else{
     header("Location: identification.php");
+    exit();
   }
   ?>
   <!-- PREMIER AFFICHAGE : si pas de paramètre GET  dans l'url , on commande -->

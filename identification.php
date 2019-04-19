@@ -22,7 +22,7 @@ if(!empty($_POST)){
 				$_SESSION["connect"] = true;
 				$_SESSION["email"] = $email;
 				$_SESSION["username"] = $user['name'];
-				header("Location: index.php");
+				header("Location: boncommande.php");
 				// FIN DU TRAITEMENT
 				exit();
 			}

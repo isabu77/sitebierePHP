@@ -16,7 +16,10 @@ require 'connect.php';
 
       if (!empty($commandes)){
 
-     }
+      }
+    }else{
+        header("Location: identification.php");
+        exit();
     }
 
 ?>
