@@ -27,12 +27,13 @@ if(!empty($_POST)){
     $ville = $_POST["ville"];
     $pays = $_POST["pays"];
     $tel = $_POST["tel"];
+	$errEmail = false;
 
 	if (!empty($username) && !empty($password) && !empty($email)){
 		require_once 'db.php';
-		$sql = 'SELECT * FROM `users` WHERE `name` = ?';
+		$sql = 'SELECT * FROM `users` WHERE `email` = ?';
 		$statement = $pdo->prepare($sql);
-		$statement->execute([$username]);
+		$statement->execute([$email]);
 		$user = $statement->fetch();
 		if (!$user){
 			// vérifier la taille du password
@@ -81,12 +82,18 @@ if(!empty($_POST)){
 		}else{
 			// TODO signaler l'existence du username
 			//die("cet utilisateur existe");
+			//$errId = Document::getElementById("errlogin");
+			$errEmail = true;
+			//$errId.value =  "cet email existe déjà pour " . $user["prenom"] . " " . $user["name"];
 
 		}
 	}else{
 		// TODO signaler les champs vides
 		//die("utilisateur ou mot de passe vides");
 	}
+}else{
+	$errEmail = false;
+
 }
 
 ?>
@@ -121,10 +128,14 @@ if(!empty($_POST)){
 		            <input type="tel" name="tel" placeholder="Tél">
 
 					<button type="submit">S'inscrire</button>
+					<label class="danger" id="errmail" <?= $errEmail ? ' ': 'hidden'; ?> >ERREUR ! cet email existe déjà !</label>
 				</form>
 				<a href="index.php">Accueil</a>
 			</div>
 		</section>
 	</div>
+	<footer>
+		
+	</footer>
 </body>
 </html>
