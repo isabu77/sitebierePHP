@@ -7,8 +7,8 @@ if(isset($_GET["deconnect"]) && $_GET["deconnect"]){
 
 if (isset($_SESSION["connect"])) {
 	$connect = $_SESSION["connect"];
-	if (isset($_SESSION["email"])) {
-		$username = $_SESSION["email"];
+	if (isset($_SESSION["username"])) {
+		$username = $_SESSION["username"];
 	}else{
 		$username = "";
 }

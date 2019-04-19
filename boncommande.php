@@ -9,7 +9,7 @@ require 'connect.php';
 $submited = (count($_GET) == 0) ? false : true ;
 // variables globales
 $phrase;
-$titre = "Bon de commande de bières"; // titre initial si pas de paramètres GET
+$titre = "Bon de commande de bières pour : ". $username; // titre initial si pas de paramètres GET
 $prixTotalHT;
 $prixTotalTTC;
 $quantiteTotal;

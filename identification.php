@@ -1,26 +1,21 @@
 <?php
-
 require 'connect.php';
+//bdd ->  UNE SEULE FOIS (once)
+require_once 'db.php';
 
 $errusername = "";
 $errpassword = "";
 
-//var_dump($stock);die();
 
 if(!empty($_POST)){
-	//$stock = require 'stock.php';
 	$email = $_POST["email"];
 	$password = $_POST["password"];
 	if (!empty($email) && !empty($password)){
 		/* verifier couple user / mdp */
-		//bdd -> Isabelle -> table users UNE SEULE FOIS (once)
-		require_once 'db.php';
-		//$sql = 'SELECT * FROM `users` WHERE `name` = "' . $username . '"';
 		$sql = 'SELECT * FROM `users` WHERE `email` = ?';
 		$statement = $pdo->prepare($sql);
 		$statement->execute([$email]);
 		$user = $statement->fetch();
-		var_dump($user);die();
 		if ($user){
 			if (password_verify($password, $user['password'])){
 					
@@ -48,6 +43,19 @@ if(!empty($_POST)){
 			$errpassword = "class= 'danger'";
 		}
 	}
+}
+else{
+	$sql = 'SELECT * FROM `users`';
+  	$statement = $pdo->query($sql);
+ 	$users = $statement->fetchAll();
+  
+	// si pas de compte, ebnchainer sur l'inscription 
+	if(empty($users)){
+		header("Location: login.php");
+		// FIN DU TRAITEMENT
+		exit();
+	}
+
 }
 
 ?>
