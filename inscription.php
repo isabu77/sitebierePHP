@@ -128,7 +128,7 @@ if(!empty($_POST)){
 		            <input type="tel" name="tel" placeholder="Tél">
 
 					<button type="submit">S'inscrire</button>
-					<label class="danger" id="errmail" <?= $errEmail ? ' ': 'hidden'; ?> >ERREUR ! cet email existe déjà !</label>
+					<label class="danger" <?= $errEmail ? ' ': 'hidden'; ?> >ERREUR ! cet email existe déjà !</label>
 				</form>
 				<a href="index.php">Accueil</a>
 			</div>

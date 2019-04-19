@@ -220,18 +220,18 @@ else{
             <thead>
               <tr class="row">
                   <th class="col-4 ">Nom de la Bière</th> <!-- Nom bière-->
-                  <th class="col-2 ">prix HT</th> <!-- prix HT -->
-                  <th class="col-2">prix TTC</th> <!-- prix TTC-->
-                  <th class="col-2">Quantité</th> <!-- quantité-->
+                  <th class="col ">prix HT</th> <!-- prix HT -->
+                  <th class="col">prix TTC</th> <!-- prix TTC-->
+                  <th class="col">Quantité</th> <!-- quantité-->
               </tr>
             </thead>
             <tbody>
 <?php  for ($i=0; $i < count($beerArray) ; $i++):?>
               <tr class="row">
-                  <td class="col-4"><?= (String)$beerArray[$i][1]?></td> <!-- Nom bière-->
-                  <td class="col-2 "><input readonly type="text" id="ht<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4],2,',',' ').'€';?>"></td> <!-- prix HT -->
-                  <td class="col-2"><input readonly type="text" id="ttc<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4]*1.2,2,',',' ').'€';?>"></td> <!-- prix TTC-->
-                  <td class="col-2"><input type="number" name="quantite[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][0]?>,<?= (String)$beerArray[$i][4]?>, '');"></td> <!-- quantité-->
+                  <td class="col"><?= (String)$beerArray[$i][1]?></td> <!-- Nom bière-->
+                  <td class="col" ><input class="col-12" readonly type="text" id="ht<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4],2,',',' ').'€';?>"></td> <!-- prix HT -->
+                  <td class="col" ><input class="col-12" readonly type="text" id="ttc<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4]*1.2,2,',',' ').'€';?>"></td> <!-- prix TTC-->
+                  <td class="col" ><input class="col-12" type="number" name="quantite[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][0]?>,<?= (String)$beerArray[$i][4]?>, '');"></td> <!-- quantité-->
               </tr>
 <?php  endfor; ?>
             </tbody>
