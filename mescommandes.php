@@ -52,9 +52,9 @@ require 'connect.php';
     <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
       <ul class="row">
         <li><a href="index.php">Les bières</a></li>
-        <li><a href="identification.php">S'identifier</a></li>
+        <li <?= $connect ? 'hidden':'';?>><a href="identification.php">S'identifier</a></li>
         <li><a href="boncommande.php">Commander</a></li>
-         <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
+        <li <?= $connect ? '':'hidden';?>><a href="identification.php?deconnect=true">Déconnexion</a></li>
       </ul>
     </nav>
 

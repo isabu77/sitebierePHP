@@ -81,7 +81,7 @@ else{
 					<button type="submit">Connexion</button>
 				</form>
 				<a href="inscription.php?deconnect=true">S'inscrire</a>
-				<a href="index.php">Accueil</a>
+				<a href="index.php">Les bières</a>
 			</div>
 		</section>
 	</div>

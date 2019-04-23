@@ -30,11 +30,10 @@ require_once 'db.php';
   <!-- MENU  -->
     <nav id='primary_nav' class="text-center font-weight-bold">
       <ul class="row">
-        <li><a href="index.php">Les bières</a></li>
-        <li><a href="identification.php">S'identifier</a></li>
+        <li <?= $connect ? 'hidden':'';?>><a href="identification.php">S'identifier</a></li>
         <li><a href="boncommande.php">Commander</a></li>
         <li><a href="mescommandes.php">Mes commandes</a></li>
-        <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
+        <li <?= $connect ? '':'hidden';?>><a href="identification.php?deconnect=true">Déconnexion</a></li>
       </ul>
     </nav>
     <section class = 'row'>
@@ -52,7 +51,7 @@ require_once 'db.php';
         <div class = row>
           <input readonly hidden type="text" id="ht<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4],2,',',' ').'€';?>">
           <input readonly type="text" id="ttc<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4]*1.2,2,',',' ').'€';?>" class='col-4 offset-2 col-md-4 offset-md-2 text-center font-weight-bold' >
-          <input type="number" class='col-3 offset-1 col-md-3 offset-md-1 font-weight-bold' name="quantite[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][0]?>,<?= (String)$beerArray[$i][4]?>, '');">
+          <input type="number" class='col-3 offset-1 col-md-3 offset-md-1 font-weight-bold' name="quantite[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][0]?>,<?= (String)$beerArray[$i][4]?>);">
         </div>
      </article>
 <?php  endfor; ?>

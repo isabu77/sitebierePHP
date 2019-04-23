@@ -117,7 +117,7 @@ if(!empty($_POST)){
 
 		            <input type="text" name="username" placeholder="*Nom" required>
 		            <input type="text" name="prenom" placeholder="*Prénom">
-		            <input type="text" name="email" placeholder="*E-mail" required>
+		            <input type="email" name="email" placeholder="*E-mail" required>
 		            <input type="password" name="password" placeholder="*Mot de passe" required>
 					<input  type="password" name="password_verif" placeholder="*Confirmez le mot de passe"  />
 		            <input type="text" name="numero" placeholder="N°">
@@ -125,12 +125,12 @@ if(!empty($_POST)){
 		            <input type="text" name="cp" placeholder="CP">
 		            <input type="text" name="ville" placeholder="Ville">
 		            <input type="text" name="pays" placeholder="Pays">
-		            <input type="tel" name="tel" placeholder="Tél">
+		            <input type="tel" name="tel" placeholder="*Tél" required>
 
 					<button type="submit">S'inscrire</button>
 					<label class="danger" <?= $errEmail ? ' ': 'hidden'; ?> >ERREUR ! cet email existe déjà !</label>
 				</form>
-				<a href="index.php">Accueil</a>
+				<a href="index.php">Les bières</a>
 			</div>
 		</section>
 	</div>

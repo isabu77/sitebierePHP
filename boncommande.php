@@ -17,6 +17,7 @@ $quantiteTotal;
 if ($submited){
     $prixTotalHT = 0.00;
     $prixTotalTTC = 0.00;
+    $FraisPort = 5.40;
     $quantiteTotal = 0;
     $tabIds = [];
     $j = 0;
@@ -33,6 +34,11 @@ if ($submited){
       }
 
     }
+    // FRAIS de PORT
+    if ($prixTotalTTC > 30){
+        $FraisPort = 0.00;
+    }
+    $prixTotalTTC += $FraisPort;
 
     // afficher la confirmation de commande
     if (($_GET['nom']) 
@@ -178,10 +184,9 @@ else{
     <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
       <ul class="row">
         <li><a href="index.php">Les bières</a></li>
-        <li><a href="identification.php">S'identifier</a></li>
-        <li><a href="boncommande.php">Commander</a></li>
+        <li <?= $connect ? 'hidden':'';?>><a href="identification.php">S'identifier</a></li>
         <li><a href="mescommandes.php">Mes commandes</a></li>
-        <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
+        <li <?= $connect ? '':'hidden';?>><a href="identification.php?deconnect=true">Déconnexion</a></li>
       </ul>
     </nav>
   <section id = "section1" class='container'>
@@ -231,7 +236,7 @@ else{
                   <td class="col"><?= (String)$beerArray[$i][1]?></td> <!-- Nom bière-->
                   <td class="col" ><input class="col-12" readonly type="text" id="ht<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4],2,',',' ').'€';?>"></td> <!-- prix HT -->
                   <td class="col" ><input class="col-12" readonly type="text" id="ttc<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4]*1.2,2,',',' ').'€';?>"></td> <!-- prix TTC-->
-                  <td class="col" ><input class="col-12" type="number" name="quantite[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][0]?>,<?= (String)$beerArray[$i][4]?>, '');"></td> <!-- quantité-->
+                  <td class="col" ><input class="col-12" type="number" name="quantite[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][0]?>,<?= (String)$beerArray[$i][4]?>);"></td> <!-- quantité-->
               </tr>
 <?php  endfor; ?>
             </tbody>
@@ -245,16 +250,16 @@ else{
   </section>
 <?php }else{ ?>
             <!-- SECOND AFFICHAGE : traitement des paramètres GET  dans l'url -->
+            <!-- CONFIRMATION de la COMMANDE et affihage des FRAIS de PORT -->
             <!-- CONFIRMATION de la COMMANDE et ENREGISTREMENT en BASE de la commande -->
     <h2 class='col-12 rounded text-white text-center bg-info col-md-10 offset-md-1'>Voici la confirmation de votre commande</h2>
 <!-- MENU  -->
     <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
       <ul class="row">
         <li><a href="index.php">Les bières</a></li>
-        <li><a href="identification.php">S'identifier</a></li>
-        <li><a href="boncommande.php">Commander</a></li>
+        <li <?= $connect ? 'hidden':'';?>><a href="identification.php">S'identifier</a></li>
         <li><a href="mescommandes.php">Mes commandes</a></li>
-        <li><a href="identification.php?deconnect=true">Déconnexion</a></li>
+        <li <?= $connect ? '':'hidden';?>><a href="identification.php?deconnect=true">Déconnexion</a></li>
       </ul>
       
     </nav>
@@ -269,8 +274,15 @@ else{
           <th class="col-4">Quantité</th> <!-- quantité-->
       </tr>
     </thead>
-    <!-- derniere ligne : totaux -->
      <tfoot>
+    <!-- avant derniere ligne : frais de port -->
+       <tr class="row">
+          <th class="col-4">FRAIS de PORT</th> <!-- Nom bière-->
+          <th class="col-2"></th> <!-- prix HT -->
+          <th class="col-2"><?= (String)number_format($FraisPort,2,',',' ').' €'?></th> 
+          <th class="col-4"></th> <!-- quantité-->
+      </tr>
+    <!-- derniere ligne : totaux -->
        <tr class="row">
           <th class="col-4">TOTAL</th> <!-- Nom bière-->
           <th class="col-2"><?= (String)number_format($prixTotalHT,2,',',' ').' €'?></th> <!-- prix HT -->
