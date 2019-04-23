@@ -14,6 +14,9 @@ if($connect){
 	exit();
 }
 
+$errEmail = false;
+$errMessage = "";
+
 // traitement du formulaire d'inscription : ajout du compte dans la table users
 if(!empty($_POST)){
 	$username = strtolower($_POST["username"]);
@@ -27,7 +30,6 @@ if(!empty($_POST)){
     $ville = $_POST["ville"];
     $pays = $_POST["pays"];
     $tel = $_POST["tel"];
-	$errEmail = false;
 
 	if (!empty($username) && !empty($password) && !empty($email)){
 		require_once 'db.php';
@@ -68,15 +70,18 @@ if(!empty($_POST)){
 						exit();
 					}else{
 						// TODO signaler problème d'insertion
-						//die("erreur enregistrement en base");
+						$errEmail = true;
+						$errMessage = "Insertion dans la base";
 					}
 				}else{
 					// TODO signaler mdp différents
-					//die("mdp différents");
+					$errEmail = true;
+					$errMessage = "Les mots de passe sont différents";
 				}
 			}else{
 				// TODO : signaler taille invalide du mdp
-				//die("mdp de taille invalide");
+				$errEmail = true;
+				$errMessage = "Le mot de passe doit avoir entre 5 et 13 caractères";
 
 			}
 		}else{
@@ -84,12 +89,14 @@ if(!empty($_POST)){
 			//die("cet utilisateur existe");
 			//$errId = Document::getElementById("errlogin");
 			$errEmail = true;
+			$errMessage = "Ce compte existe déjà ! (même email)";
 			//$errId.value =  "cet email existe déjà pour " . $user["prenom"] . " " . $user["name"];
 
 		}
 	}else{
 		// TODO signaler les champs vides
-		//die("utilisateur ou mot de passe vides");
+		$errEmail = true;
+		$errMessage = "Champs vides";
 	}
 }else{
 	$errEmail = false;
@@ -125,10 +132,10 @@ if(!empty($_POST)){
 		            <input type="text" name="cp" placeholder="CP">
 		            <input type="text" name="ville" placeholder="Ville">
 		            <input type="text" name="pays" placeholder="Pays">
-		            <input type="tel" name="tel" placeholder="*Tél" required>
+		            <input type="tel" name="tel" placeholder="Tél">
 
 					<button type="submit">S'inscrire</button>
-					<label class="danger" <?= $errEmail ? ' ': 'hidden'; ?> >ERREUR ! cet email existe déjà !</label>
+					<label class="danger" <?= $errEmail ? ' ': 'hidden'; ?> >ERREUR ! <?= $errMessage ?></label>
 				</form>
 				<a href="index.php">Les bières</a>
 			</div>

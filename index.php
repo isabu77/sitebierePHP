@@ -17,7 +17,7 @@ require_once 'db.php';
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity    ="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  <link rel="shortcut icon" href="assets/img/arbreVert.jpg">
+  <link rel="shortcut icon" href="assets/img/beerIcon.ico">
 </head>
 
 <body id="home">
@@ -31,6 +31,7 @@ require_once 'db.php';
     <nav id='primary_nav' class="text-center font-weight-bold">
       <ul class="row">
         <li <?= $connect ? 'hidden':'';?>><a href="identification.php">S'identifier</a></li>
+        <li <?= $connect ? 'hidden':'';?>><a href="inscription.php?deconnect=true">S'inscrire</a></li>
         <li><a href="boncommande.php">Commander</a></li>
         <li><a href="mescommandes.php">Mes commandes</a></li>
         <li <?= $connect ? '':'hidden';?>><a href="identification.php?deconnect=true">Déconnexion</a></li>

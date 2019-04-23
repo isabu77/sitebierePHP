@@ -10,7 +10,6 @@ if (isset($_SESSION["connect"])) {
 	$connect = $_SESSION["connect"];
 	if (isset($_SESSION["username"])) {
 		$username = $_SESSION["username"];
-		$connect = true;
 	}else{
 		$username = "";
 		$connect = false;

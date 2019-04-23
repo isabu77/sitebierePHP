@@ -209,7 +209,7 @@ else{
           <div class = "row mb-2">
             <input type="text" name="cp" value='<?= ($cp) ? $cp:''; ?>' placeholder="*CP" required class="form-control col-md-2 offset-md-1">
             <input type="text" name="ville" value='<?= ($ville) ? $ville:''; ?>' placeholder="*Ville" required class="form-control col-md-5 offset-md-1">
-            <input type="text" name="pays" value='<?= ($pays) ? $pays:''; ?>' placeholder="*Pays" required class="form-control col-md-2 offset-md-1">
+            <input type="text" name="pays" value='<?= ($pays) ? $pays:''; ?>' placeholder="*Pays" class="form-control col-md-2 offset-md-1">
           </div>
           
           <div class = "row mb-2">
@@ -258,6 +258,7 @@ else{
       <ul class="row">
         <li><a href="index.php">Les bières</a></li>
         <li <?= $connect ? 'hidden':'';?>><a href="identification.php">S'identifier</a></li>
+        <li><a href="boncommande.php">Commander</a></li>
         <li><a href="mescommandes.php">Mes commandes</a></li>
         <li <?= $connect ? '':'hidden';?>><a href="identification.php?deconnect=true">Déconnexion</a></li>
       </ul>

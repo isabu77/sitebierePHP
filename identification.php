@@ -5,6 +5,8 @@ require_once 'db.php';
 
 $errusername = "";
 $errpassword = "";
+$errEmail = false;
+$errMessage = "";
 
 
 if(!empty($_POST)){
@@ -28,10 +30,14 @@ if(!empty($_POST)){
 			}
 			else{
 				$errpassword = "class= 'danger'";
+				$errEmail = true;
+				$errMessage = "Email ou mot de passe invalides";
 			}
 		}
 		else{
 			$errusername = "class= 'danger'";
+			$errEmail = true;
+			$errMessage = "Email ou mot de passe invalides";
 		}
 	}
 	else{
@@ -42,6 +48,8 @@ if(!empty($_POST)){
 		if (empty($password) ){
 			$errpassword = "class= 'danger'";
 		}
+		$errEmail = true;
+		$errMessage = "Email ou mot de passe invalides";
 	}
 }
 else{
@@ -79,7 +87,10 @@ else{
 					<input <?= $errusername ?> type="email" name="email" placeholder="Adresse mail"  />
 					<input <?= $errpassword ?> type="password" name="password" placeholder="Mot de passe"  />
 					<button type="submit">Connexion</button>
+					<label class="danger" <?= $errEmail ? ' ': 'hidden'; ?> >ERREUR ! <?= $errMessage ?></label>
 				</form>
+				<a href="oublimdp.php">J'ai oublié mon mot de passe</a>
+				<br />
 				<a href="inscription.php?deconnect=true">S'inscrire</a>
 				<a href="index.php">Les bières</a>
 			</div>
