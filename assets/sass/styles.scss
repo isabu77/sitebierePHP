@@ -1,0 +1,83 @@
+body{
+	.menu{
+		font-size:20px;
+		//color:#FFFFFF;
+		.burger{
+			appearance:none;
+		  -moz-appearance:none;
+		  -webkit-appearance:none;
+		  //color:inherit;
+		  cursor:pointer;
+		  font-size:5vw;
+		  line-height:50px;
+		  margin:0;
+		  outline:0;
+		  padding:0;
+		  text-align:center;		  
+		  width:50px;
+			&:before {
+				content: '☰';
+			}
+			&:checked {
+				&+ nav {
+					height: calc(5em - 5px);
+					opacity: 0.9;
+				}
+				&:before {
+					content: 'X';
+				}
+			}
+		}
+		h1{
+			font-size:1.5rem;
+
+		}
+		nav {
+			background:#17a2b8;
+			font-size:20px;
+			font-weight:bold;
+			height:0;
+			overflow:hidden;
+			text-transform:uppercase;
+			transition:height .2s;
+			width: 100%;
+			& > * {
+				display: block;
+				letter-spacing: 1px;
+				padding: 0 20px;
+				width: 100%;
+				font-size: 4vw;
+			}
+			ul {
+				list-style-type: none;
+				li {
+					text-align: center;
+					a {
+						color: #FFFFFF;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+	/*FOOTER */
+	footer {
+		background-color: #17a2b8;
+		line-height: 20px;
+		nav {
+			ul {
+				list-style: none;
+				display: flex;
+				justify-content: space-around;
+				margin: 0;
+				li {
+					a {
+						color: #FFFFFF;
+					}
+				}
+			}
+		}
+	}
+}
+@import '_mdlg.scss';
+

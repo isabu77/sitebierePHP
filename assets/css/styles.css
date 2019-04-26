@@ -1,0 +1,81 @@
+@charset "UTF-8";
+body {
+  /*FOOTER */ }
+  body .menu {
+    font-size: 20px; }
+    body .menu .burger {
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      font-size: 5vw;
+      line-height: 50px;
+      margin: 0;
+      outline: 0;
+      padding: 0;
+      text-align: center;
+      width: 50px; }
+      body .menu .burger:before {
+        content: '☰'; }
+      body .menu .burger:checked + nav {
+        height: calc(5em - 5px);
+        opacity: 0.9; }
+      body .menu .burger:checked:before {
+        content: 'X'; }
+    body .menu h1 {
+      font-size: 1.5rem; }
+    body .menu nav {
+      background: #17a2b8;
+      font-size: 20px;
+      font-weight: bold;
+      height: 0;
+      overflow: hidden;
+      text-transform: uppercase;
+      transition: height .2s;
+      width: 100%; }
+      body .menu nav > * {
+        display: block;
+        letter-spacing: 1px;
+        padding: 0 20px;
+        width: 100%;
+        font-size: 4vw; }
+      body .menu nav ul {
+        list-style-type: none; }
+        body .menu nav ul li {
+          text-align: center; }
+          body .menu nav ul li a {
+            color: #FFFFFF;
+            text-decoration: none; }
+  body footer {
+    background-color: #17a2b8;
+    line-height: 20px; }
+    body footer nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: space-around;
+      margin: 0; }
+      body footer nav ul li a {
+        color: #FFFFFF; }
+
+@media (min-width: 768px) {
+  body .menu .burger {
+    display: none; }
+  body .menu h1 {
+    font-size: 1.5rem; }
+  body .menu nav {
+    background: #17a2b8;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: initial; }
+    body .menu nav > * {
+      font-size: 0.8vw; }
+    body .menu nav ul {
+      display: flex;
+      justify-content: space-around; }
+  body footer {
+    height: 5vh;
+    display: flex;
+    align-items: center; }
+    body footer nav {
+      width: 100%; } }
