@@ -1,43 +1,11 @@
 ﻿<?php 
-require 'connect.php';
-// Connexion et Lecture de la table sitebiere pour la remplir à partir du tableau si elle est vide 
-require_once 'db.php';
+include 'includes/header.php';
+require_once 'includes/function.php';
 
 ?>
 <!-- PAGE PRINCIPALE de présentation des bières -->
-<!DOCTYPE html>
-<html>
 
-<head>
-  <meta charset='UTF-8' />
-  <title>Les bières</title>
-<!--   <link rel='stylesheet' href='style.css' />
- -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity    ="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
-  <link rel="shortcut icon" href="assets/img/beerIcon.ico">
-</head>
-
-<body id="home">
-<div class='wrapper container'>
   <!-- Entete  class="row"-->
-  <header class="menu" >
-    <h1 class='col-12 rounded text-white text-center bg-info '>Bières - Compte: <?= $username?></h1>
-    <input type="checkbox" class= "burger">
-  <!-- MENU id='primary_nav' class="col-12 text-center font-weight-bold" -->
-    <nav>
-      <ul ><!-- class="row" -->
-        <li <?= $connect ? 'hidden':'';?>><a href="identification.php">S'identifier</a></li>
-        <li <?= $connect ? 'hidden':'';?>><a href="inscription.php?deconnect=true">S'inscrire</a></li>
-        <li><a href="boncommande.php">Commander</a></li>
-        <li><a href="mescommandes.php">Mes commandes</a></li>
-        <li <?= $connect ? '':'hidden';?>><a href="identification.php?deconnect=true">Déconnexion</a></li>
-      </ul>
-    </nav>
-  </header >
   <section class = "row">
       <!-- BOUCLE de lecture du tableau pour afficher un article par bière -->
 <?php for ($i=0; $i < count($beerArray) ; $i++):?>
@@ -59,20 +27,6 @@ require_once 'db.php';
 <?php  endfor; ?>
   </section>
 
-  <footer class='row'>
-    <nav  class="col-12 text-center font-weight-bold">
-      <ul class='row'>
-        <li><a href="">mentions légales</li>
-        <li><a href="">CGV</li>
-      </ul>
-    </nav>
-  </footer>
-
-</div>
-
-<!-- JAVASCRIPT : fonctions de réponse aux boutons onclick -->
-  <script src="assets/js/functions.js"></script>
-</body>
+<?php include 'includes/footer.php'; ?>
 
 
-</html>

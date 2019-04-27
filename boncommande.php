@@ -7,8 +7,7 @@ require 'connect.php';
 // y a t il des paramètres GET à traiter ?
 $submited = (count($_GET) == 0) ? false : true ;
 // variables globales
-$phrase;
-$titre = "Bon de commande de bières pour : ". $username; // titre initial si pas de paramètres GET
+$titre = "Bon de commande"; // titre initial si pas de paramètres GET
 $prixTotalHT;
 $prixTotalTTC;
 $quantiteTotal;
@@ -49,11 +48,11 @@ if ($submited){
 */        ){
 
         // concaténer prénom et nom pour l'afficher avec Bonjour
-        $identite = strtoupper($_GET['prenom'] . ' ' . $_GET['nom']);
-        $titre =  "Bonjour " . $identite . ' !';
+        //$identite = strtoupper($_GET['prenom'] . ' ' . $_GET['nom']);
+        $titre =  "Voici la confirmation de votre commande";// . $identite . ' !';
 
         // lecture du user dans la base pour le mettre à jour
-        $sql = "SELECT * FROM `users` WHERE `name` = '" . $username . "'";
+        $sql = "SELECT * FROM `users` WHERE `email` = '" . $useremail . "'";
         $statement = $pdo->query($sql);
         $user = $statement->fetch();
 
@@ -123,7 +122,6 @@ if ($submited){
 }
 else{
         // TODO : gérer les erreurs de saisie pour réafficher le formulaire
-        $phrase = "Bon de commande de bières";
         $erreur['nom'] = false;
         $erreur['prenom'] = false;
 /*        $erreur['rue'] = false ;
@@ -134,31 +132,20 @@ else{
 ?>
 
 <!-- LA PAGE HTML du formulaire avec le bon de commande  -->
-<!DOCTYPE html>
-<html>
+<?php 
+include 'includes/header.php';
+require_once 'includes/function.php';
+?>
 
-<head>
-  <meta charset='UTF-8' />
-  <title>Bon de commande de bières</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel='stylesheet' href='assets/css/style.css' />
-</head>
-
-<body>
 <div class='wrapper container'>
   
-  <!-- LE HEADER : affichage du titre initial ou de Bonjour prénom nom ! -->
-  <header class="row">
-    <h2 class='col-12 rounded text-white text-center bg-info col-md-12'></h2>
-    <h1 class='col-12 rounded text-white text-center bg-info col-md-12'><?=$titre?></h1>
-  </header>
+  <!-- affichage du titre initial ou de Bonjour prénom nom ! -->
+    <h1 class='col-12 rounded text-center col-md-12'><?=$titre?></h1>
 
 <?php if (!$submited){ 
   // PREMIER AFFICHAGE : si pas de paramètre GET  dans l'url , on commande 
   // lecture du user dans la base
-  $sql = "SELECT * FROM `users` WHERE `name` = '" . $username . "'";
+  $sql = "SELECT * FROM `users` WHERE `email` = '" . $useremail . "'";
   $statement = $pdo->query($sql);
   $user = $statement->fetch();
 
@@ -180,15 +167,6 @@ else{
   }
   ?>
   <!-- PREMIER AFFICHAGE : si pas de paramètre GET  dans l'url , on commande -->
-<!-- MENU  -->
-    <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
-      <ul class="row">
-        <li><a href="index.php">Les bières</a></li>
-        <li <?= $connect ? 'hidden':'';?>><a href="identification.php">S'identifier</a></li>
-        <li><a href="mescommandes.php">Mes commandes</a></li>
-        <li <?= $connect ? '':'hidden';?>><a href="identification.php?deconnect=true">Déconnexion</a></li>
-      </ul>
-    </nav>
   <section id = "section1" class='container'>
     <!-- Formulaire client avec envoi sur soi-meme en mode GET -->
     <form action="" method="get" class = 'col-md-12'>
@@ -251,20 +229,6 @@ else{
 <?php }else{ ?>
             <!-- SECOND AFFICHAGE : traitement des paramètres GET  dans l'url -->
             <!-- CONFIRMATION de la COMMANDE et affihage des FRAIS de PORT -->
-            <!-- CONFIRMATION de la COMMANDE et ENREGISTREMENT en BASE de la commande -->
-    <h2 class='col-12 rounded text-white text-center bg-info col-md-10 offset-md-1'>Voici la confirmation de votre commande</h2>
-<!-- MENU  -->
-    <nav id = "primary_nav" class="col-12 col-md-12 text-center font-weight-bold">
-      <ul class="row">
-        <li><a href="index.php">Les bières</a></li>
-        <li <?= $connect ? 'hidden':'';?>><a href="identification.php">S'identifier</a></li>
-        <li><a href="boncommande.php">Commander</a></li>
-        <li><a href="mescommandes.php">Mes commandes</a></li>
-        <li <?= $connect ? '':'hidden';?>><a href="identification.php?deconnect=true">Déconnexion</a></li>
-      </ul>
-      
-    </nav>
-
     <table class = 'col-md-10 offset-md-1' >
     <!-- 1ere ligne : titre -->
     <thead>
@@ -312,13 +276,4 @@ else{
 <?php } ?>
 </div>
 
-  <footer>
-     
-  </footer>
-
-<!-- SCRIPT JS : la fonction  quantitebiere() lancée au changement de la qantité commandée -->
-  <script src="assets/js/functions.js"></script>
-</body>
-
-
-</html>
+<?php include 'includes/footer.php'; ?>

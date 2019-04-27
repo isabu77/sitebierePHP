@@ -2,5 +2,5 @@
 
 $dbhost = 'localhost';
 $dbname= ''; 
-$user = 'root';
-$psw = '';
+$dbuser = 'root';
+$dbpassword = '';

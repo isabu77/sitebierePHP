@@ -1,6 +1,5 @@
 <?php
-require 'connect.php';
-//bdd ->  UNE SEULE FOIS (once)
+require_once 'connect.php';
 require_once 'db.php';
 
 $errusername = "";
@@ -24,6 +23,7 @@ if(!empty($_POST)){
 				$_SESSION["connect"] = true;
 				$_SESSION["email"] = $email;
 				$_SESSION["username"] = $user['name'];
+				$_SESSION["userfirstname"] = $user['prenom'];
 				header("Location: boncommande.php");
 				// FIN DU TRAITEMENT
 				exit();
