@@ -62,6 +62,11 @@ if(!empty($_POST)){
 										]);
 					if ($result){
 						// connexion directe et bon de commande
+						$sql = 'SELECT * FROM `users` WHERE `email` = ?';
+						$statement = $pdo->prepare($sql);
+						$statement->execute([$email]);
+						$user = $statement->fetch();
+						$_SESSION["user"] = $user;
 						$_SESSION["connect"] = true;
 						$_SESSION["username"] = $username;
 						$_SESSION["email"] = $email;

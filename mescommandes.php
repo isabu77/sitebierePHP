@@ -1,12 +1,9 @@
-﻿<?php include 'includes/header.php'; ?>
+﻿<?php 
+$index = false;
+include 'includes/header.php'; ?>
 <?php
-   // lecture du user dans la base pour le mettre à jour
-    $sql = "SELECT * FROM `users` WHERE `email` = '" . $useremail . "'";
-    $statement = $pdo->query($sql);
-    $user = $statement->fetch();
-
-    if(!empty($user)){
-      $iduser = $user["id"];
+  if(!empty($currentUser)){
+      $iduser = $currentUser["id"];
       // lecture des commandes dans la base
       $sql = "SELECT * FROM `commandes` WHERE `iduser` = '" . $iduser . "'";
       $statement = $pdo->query($sql);
@@ -16,15 +13,20 @@
         header("Location: identification.php");
         exit();
       }
-    }
+  }
+  else{
+    header("Location: identification.php");
+    exit();
+  }
+    
 
 ?>
 
 <!-- LA PAGE HTML du formulaire et des commandes  -->
-<div class='wrapper container'>
+<div class='container'>
   
   <!-- affichage du titre initial ou de Bonjour prénom nom ! -->
-    <h2 class='col-12 text-center col-md-8 offset-md-1'><?= $user["prenom"]?>, voici vos commandes :</h2>
+    <h2 class='col-12 text-center col-md-8 offset-md-1'><?= $currentUser["prenom"]?>, voici vos commandes :</h2>
 
     <table class = 'col-10 offset-1 col-md-10 offset-md-1' >
     <!-- 1ere ligne : titre -->

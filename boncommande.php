@@ -2,6 +2,7 @@
 require_once 'db.php';
 // vérif connecté
 require 'connect.php';
+
             //  PHP : traitement des paramètres GET  dans l'url 
 
 // y a t il des paramètres GET à traiter ?
@@ -133,33 +134,34 @@ else{
 
 <!-- LA PAGE HTML du formulaire avec le bon de commande  -->
 <?php 
+$index = false;
 include 'includes/header.php';
 require_once 'includes/function.php';
 ?>
 
-<div class='wrapper container'>
+<div class='container'>
   
   <!-- affichage du titre initial ou de Bonjour prénom nom ! -->
-    <h1 class='col-12 rounded text-center col-md-12'><?=$titre?></h1>
+    <h1 class='rounded text-center'><?=$titre?></h1>
 
 <?php if (!$submited){ 
   // PREMIER AFFICHAGE : si pas de paramètre GET  dans l'url , on commande 
   // lecture du user dans la base
-  $sql = "SELECT * FROM `users` WHERE `email` = '" . $useremail . "'";
+/*  $sql = "SELECT * FROM `users` WHERE `email` = '" . $useremail . "'";
   $statement = $pdo->query($sql);
   $user = $statement->fetch();
-
-  if(!empty($user)){
-    $iduser = $user["id"];
-    $prenom = $user["prenom"];
-    $email = $user["email"];
-    $password = $user["password"];
-    $numero = $user["numrue"];
-    $rue = $user["rue"];
-    $cp = $user["codepostal"];
-    $ville = $user["ville"];
-    $pays = $user["pays"];
-    $tel = $user["tel"];
+*/
+  if(!empty($currentUser)){
+    $iduser = $currentUser["id"];
+    $prenom = $currentUser["prenom"];
+    $email = $currentUser["email"];
+    $password = $currentUser["password"];
+    $numero = $currentUser["numrue"];
+    $rue = $currentUser["rue"];
+    $cp = $currentUser["codepostal"];
+    $ville = $currentUser["ville"];
+    $pays = $currentUser["pays"];
+    $tel = $currentUser["tel"];
   }
   else{
     header("Location: identification.php");
@@ -167,7 +169,7 @@ require_once 'includes/function.php';
   }
   ?>
   <!-- PREMIER AFFICHAGE : si pas de paramètre GET  dans l'url , on commande -->
-  <section id = "section1" class='container'>
+  <section>
     <!-- Formulaire client avec envoi sur soi-meme en mode GET -->
     <form action="" method="get" class = 'col-md-12'>
           <div class = "mb-2 form-group">

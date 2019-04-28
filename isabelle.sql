@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 26 avr. 2019 à 13:59
+-- Généré le :  Dim 28 avr. 2019 à 14:16
 -- Version du serveur :  5.7.24
 -- Version de PHP :  5.6.40
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `commandes` (
   `idsproduits` text NOT NULL,
   `prixttc` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=latin1 COMMENT='historique des comandes';
+) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=latin1 COMMENT='historique des comandes';
 
 --
 -- Déchargement des données de la table `commandes`
@@ -108,7 +108,17 @@ INSERT INTO `commandes` (`id`, `iduser`, `idsproduits`, `prixttc`) VALUES
 (40, 13, 'a:1:{i:0;s:1:\"2\";}', 15.36),
 (41, 13, 'a:2:{i:0;s:1:\"1\";i:1;s:1:\"4\";}', 43.908),
 (42, 14, 'a:3:{i:0;s:1:\"2\";i:1;s:1:\"6\";i:2;s:1:\"8\";}', 41.772),
-(43, 14, 'a:3:{i:0;s:1:\"2\";i:1;s:1:\"6\";i:2;s:1:\"8\";}', 41.772);
+(43, 14, 'a:3:{i:0;s:1:\"2\";i:1;s:1:\"6\";i:2;s:1:\"8\";}', 41.772),
+(44, 9, 'a:3:{i:0;s:1:\"1\";i:1;s:1:\"3\";i:2;s:1:\"5\";}', 33.36),
+(45, 9, 'a:1:{i:0;s:1:\"1\";}', 12.276),
+(46, 9, 'a:1:{i:0;s:1:\"1\";}', 12.276),
+(47, 9, 'a:1:{i:0;s:1:\"1\";}', 12.276),
+(48, 9, 'a:1:{i:0;s:1:\"1\";}', 12.276),
+(49, 9, 'a:1:{i:0;s:1:\"6\";}', 16.236),
+(50, 9, 'a:1:{i:0;s:1:\"7\";}', 23.28),
+(51, 16, 'a:1:{i:0;s:1:\"8\";}', 26.28),
+(52, 16, 'a:1:{i:0;s:1:\"8\";}', 26.28),
+(53, 16, 'a:1:{i:0;s:1:\"1\";}', 26.028);
 
 -- --------------------------------------------------------
 
@@ -161,15 +171,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `pays` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `tel` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COMMENT='utilisateurs';
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COMMENT='utilisateurs';
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `name`, `password`, `prenom`, `numrue`, `rue`, `codepostal`, `ville`, `pays`, `tel`) VALUES
-(9, 'isabelle.buferne@laposte.net', 'buferne', '$2y$10$5jOLkUQ1zA4MRDREZlemrO6.qFR1moEzVRve/wHmMnvClaJyDWG9C', 'alain', '47', 'montplaisir', '03630', 'DESERTINES', 'France', '0608861282'),
-(10, 'isabu77@gmail.com', 'martinez', '$2y$10$YkMQAID3aVDWyAR7pK9oRuWDGdqBl/tfg9TdWZTX9lX1PzD8B5aia', 'kevin', '25', 'AVENUE SERGE', '77500', 'CHELLES', 'France', '0666666666'),
+(16, 'isabelle.buferne@laposte.net', 'buferne', '$2y$10$8D8w9vlXokuyjZ622z5FzePwRQjNtd1qWD8F0Lgc3HUEMUh67kQIq', 'isabelle', '47', 'montplaisir', '03630', 'DESERTINES', 'France', '000000'),
+(17, 'isabu77@gmail.com', 'bu', '$2y$10$BTHbwoZRL8Uv/PotdYqU7uK8krsSjf.ph4EWKvEHciFdVS2W9LB/q', 'isa', '58', 'bd chilperic', '77500', 'CHELLES', 'France', '2335'),
 (12, 'julien@gmail.com', 'dugrais', '$2y$10$2DacM430CoBm7qNqEqJG8OM8ym52PV0pqce90mU9oONFTWawFusWC', 'julien', '25', 'Av république', '03600', 'montluçon', 'france', '07426'),
 (14, 'kevin@codev-web.fr', 'pomme', '$2y$10$du3gEqPhE11J.9L6GiP/1usx3ABoNkFc2tDA8y89SHqsdXyKdIFhO', 'kevin', '3', 'rue curie', '03600', 'montluçon', 'France', '015416');
 COMMIT;

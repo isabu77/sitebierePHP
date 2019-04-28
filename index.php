@@ -1,4 +1,5 @@
 ﻿<?php 
+$index = true;
 include 'includes/header.php';
 require_once 'includes/function.php';
 

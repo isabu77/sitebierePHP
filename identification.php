@@ -19,6 +19,7 @@ if(!empty($_POST)){
 		$user = $statement->fetch();
 		if ($user){
 			if (password_verify($password, $user['password'])){
+				$_SESSION["user"] = $user;
 					
 				$_SESSION["connect"] = true;
 				$_SESSION["email"] = $email;
