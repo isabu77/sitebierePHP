@@ -1,10 +1,10 @@
 <?php
 require_once 'config.php';
-require_once 'includes/function.php';
+require_once 'function.php';
 
 // Connexion et Lecture de la table sitebiere pour la remplir à partir du tableau si elle est vide 
 $pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
-
+$tva = 1.2;
 try {
   $sql = 'SELECT * FROM `sitebiere`';
   $statement = $pdo->query($sql);

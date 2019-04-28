@@ -24,12 +24,12 @@ require_once 'db.php';
   <!-- MENU id='primary_nav' class="col-12 text-center font-weight-bold" -->
     <nav class="rounded">
       <ul><!-- class="row" -->
-        <li <?= $connect ? 'hidden':'';?> ><a href="identification.php">S'identifier</a></li>
-        <li <?= $connect ? 'hidden':'';?> ><a href="inscription.php?deconnect=true">S'inscrire</a></li>
-        <li <?= (basename($_SERVER['REQUEST_URI']) == "index.php") ? 'hidden':'';?> ><a href="index.php">Boutique</a></li>
-        <li><a href="boncommande.php">Commander</a></li>
-        <li><a href="mescommandes.php">Mes commandes</a></li>
-        <li <?= $connect ? '':'hidden';?>><a href="identification.php?deconnect=true">Déconnexion</a></li>
+        <li <?= $connect ? 'hidden':'';?> ><a href=<?= uri("identification.php") ?> >S'identifier</a></li>
+        <li <?= $connect ? 'hidden':'';?> ><a href=<?= uri("inscription.php?deconnect=true") ?> >S'inscrire</a></li>
+        <li <?= (basename($_SERVER['REQUEST_URI']) == "index.php") ? 'hidden':'';?> ><a href=<?= uri("index.php") ?>>Boutique</a></li>
+        <li><a href=<?= uri("commande.php") ?> >Commander</a></li>
+        <li><a href=<?= uri("mescommandes.php") ?> >Mes commandes</a></li>
+        <li <?= $connect ? '':'hidden';?>><a href=<?= uri("identification.php?deconnect=true") ?>>Déconnexion</a></li>
       </ul>
     </nav>
   </header >

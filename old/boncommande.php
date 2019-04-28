@@ -1,7 +1,7 @@
 ﻿<?php
-require_once 'db.php';
+require_once 'includes/db.php';
 // vérif connecté
-require 'connect.php';
+require 'includes/connect.php';
 
             //  PHP : traitement des paramètres GET  dans l'url 
 
@@ -17,8 +17,7 @@ $quantiteTotal;
 if ($submited){
     $prixTotalHT = 0.00;
     $prixTotalTTC = 0.00;
-    $FraisPort = 5.40;
-    $quantiteTotal = 0;
+   $quantiteTotal = 0;
     $tabIds = [];
     $j = 0;
     //var_dump($_GET);
@@ -35,8 +34,9 @@ if ($submited){
 
     }
     // FRAIS de PORT
-    if ($prixTotalTTC > 30){
-        $FraisPort = 0.00;
+    $FraisPort = 0.00;
+    if ($prixTotalTTC < 30){
+        $FraisPort = 5.40;
     }
     $prixTotalTTC += $FraisPort;
 
@@ -69,8 +69,7 @@ if ($submited){
           $pays = $_GET["pays"];
           $tel = $_GET["tel"];
           // enregistrement de la commande dans la base
-          require_once 'db.php';
-          $serial = serialize($tabIds);
+         $serial = serialize($tabIds);
 
           $sql = 'INSERT INTO `commandes` (`iduser`, `idsproduits`, `prixttc`) 
                         VALUES (:iduser, :idsproduits, :prixttc)';
@@ -230,7 +229,7 @@ require_once 'includes/function.php';
   </section>
 <?php }else{ ?>
             <!-- SECOND AFFICHAGE : traitement des paramètres GET  dans l'url -->
-            <!-- CONFIRMATION de la COMMANDE et affihage des FRAIS de PORT -->
+            <!-- CONFIRMATION de la COMMANDE et affichage des FRAIS de PORT -->
     <table class = 'col-md-10 offset-md-1' >
     <!-- 1ere ligne : titre -->
     <thead>

@@ -70,7 +70,7 @@ if(!empty($_POST)){
 						$_SESSION["connect"] = true;
 						$_SESSION["username"] = $username;
 						$_SESSION["email"] = $email;
-						header("Location: boncommande.php");
+						header("Location: commande.php");
 						// FIN DU TRAITEMENT
 						exit();
 					}else{

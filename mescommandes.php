@@ -26,7 +26,7 @@ include 'includes/header.php'; ?>
 <div class='container'>
   
   <!-- affichage du titre initial ou de Bonjour prénom nom ! -->
-    <h2 class='col-12 text-center col-md-8 offset-md-1'><?= $currentUser["prenom"]?>, voici vos commandes :</h2>
+    <h2 class='col-12 text-center col-md-8 offset-md-1'><?= $currentUser["prenom"]?>, voici vos commandes</h2>
 
     <table class = 'col-10 offset-1 col-md-10 offset-md-1' >
     <!-- 1ere ligne : titre -->

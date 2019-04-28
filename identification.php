@@ -1,6 +1,6 @@
 <?php
-require_once 'connect.php';
-require_once 'db.php';
+require_once 'includes/connect.php';
+require_once 'includes/db.php';
 
 $errusername = "";
 $errpassword = "";
@@ -25,7 +25,7 @@ if(!empty($_POST)){
 				$_SESSION["email"] = $email;
 				$_SESSION["username"] = $user['name'];
 				$_SESSION["userfirstname"] = $user['prenom'];
-				header("Location: boncommande.php");
+				header("Location: commande.php");
 				// FIN DU TRAITEMENT
 				exit();
 			}
