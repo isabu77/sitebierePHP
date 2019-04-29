@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() != PHP_SESSION_ACTIVE){
+	session_start();
+}
 if(isset($_GET["deconnect"]) && $_GET["deconnect"]){
 	unset($_SESSION["connect"]);
 	$connect = false;
