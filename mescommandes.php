@@ -10,12 +10,12 @@ include 'includes/header.php'; ?>
       $commandes = $statement->fetchAll();
 
       if (empty($commandes)){
-        header("Location: identification.php");
+        header("Location: ". uri("login.php"));
         exit();
       }
   }
   else{
-    header("Location: identification.php");
+        header("Location: ". uri("login.php"));
     exit();
   }
     

@@ -163,7 +163,7 @@ require_once 'includes/function.php';
     $tel = $currentUser["tel"];
   }
   else{
-    header("Location: identification.php");
+    header("Location: ". uri("identification.php"));
     exit();
   }
   ?>

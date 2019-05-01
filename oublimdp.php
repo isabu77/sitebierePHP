@@ -1,6 +1,5 @@
 <?php 
-//bdd ->  UNE SEULE FOIS (once)
-require_once 'db.php';
+require_once 'includes/function.php';
 
 $errusername = "";
 $erremail = "";
@@ -11,6 +10,7 @@ if(!empty($_POST)){
 	$username = $_POST["username"];
 	if (!empty($email) && !empty($username)){
 		/* verifier le user name */
+		$pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
 		$sql = 'SELECT * FROM `users` WHERE `name` = :name AND `email` = :email';
 		$statement = $pdo->prepare($sql);
 		$statement->execute([':email' 	=> $email, 
@@ -71,7 +71,7 @@ if(!empty($_POST)){
 			//$res = mail($email, "Réinitialisation du mot de passe sur le site Bières", $texte);
 			if ($res){
 				// s'identifier avec le nouveau mot de passe
-				header("Location: identification.php");
+        		header("Location: ". uri("login.php"));
 				// FIN DU TRAITEMENT
 				exit();
 			}
@@ -117,6 +117,7 @@ if(!empty($_POST)){
 					<input <?= $erremail ?> type="email" name="email" placeholder="Adresse mail"  />
 					<button type="submit">Envoyer</button>
 				</form>
+				<a href="index.php">Les bières</a>
 			</div>
 		</section>
 	</div>

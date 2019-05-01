@@ -8,9 +8,14 @@ require_once 'config.php';
 */
 function uri($cible="")//:string
 {
+	global $racine; // définie dans config.php (false si wamp, true si serveur externe)
+	$folder = ""; // dossier courant
 	$uri = "http://".$_SERVER['HTTP_HOST'];
-	$folder = basename(dirname(dirname(__FILE__)));
-	return $uri.'/'.$folder.'/'.$cible;
+	if (!$racine){
+		$folder = basename(dirname(dirname(__FILE__))).'/';
+
+	}
+	return $uri.'/'.$folder.$cible;
 }
 
 
@@ -24,10 +29,21 @@ function getDB(	$dbuser='root',
 				$dbhost='localhost',
 				$dbname='sitebeer') //:\PDO
 {
+	
 
 	$dsn = 'mysql:dbname='.$dbname.';host='.$dbhost.';charset=UTF8';
 	try {
-    	return new PDO($dsn, $dbuser, $dbpassword);
+    	$pdo = new PDO($dsn, $dbuser, $dbpassword);
+
+    	//definit mode de recupération en mode tableau associatif
+    	// $user["lastname"];
+    	$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+    	//definit mode de recupération en mode Objet
+    	//$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+    	// $user->lastname;
+    	return $pdo;
+
 	} catch (PDOException $e) {
     	echo 'Connexion échouée : ' . $e->getMessage();
     	die();
@@ -40,20 +56,84 @@ function getDB(	$dbuser='root',
 *	@return String
 */
 
-function input($name, $label, $type='text', $require=false)//:string
+function input($name, $label,$value="", $type='text', $require=true)//:string
 {
 	$input = "<div class=\"form-group\"><label for=\"".
 	$name."\">".$label.
 	"</label><input id=\"".
 	$name."\" type=\"".$type.
-	"\" name=\"".$name."\" value=\"\" ";
+	"\" name=\"".$name."\" value=\"".$value."\" ";
 	$input .= ($require)? "required": "";
 	$input .= "></div>";
 
 	return $input;
 }
 
+/**
+* Connecte le client
+* @return boolean|void
+*/
+function userConnect($mail, $password, $verify=false){//:boolean|void
+	require 'config.php';
+
+	$sql = "SELECT * FROM users WHERE `email`= ?";
+	$pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
+
+		$statement = $pdo->prepare($sql);
+		$statement->execute([htmlspecialchars($mail)]);
+		$user = $statement->fetch();
+		if(	$user && 
+			password_verify(
+			htmlspecialchars($password), $user['password']
+		)){
+				if($verify){
+					return true;
+					//exit();
+				}
+
+				if (session_status() != PHP_SESSION_ACTIVE){
+					session_start();
+				}
+				unset($user['password']);
+				$_SESSION['user'] = $user;
+				//connecté
+       			header("Location: ". uri("commande.php"));
+				exit();
+
+		}else{
+
+			if($verify){
+				return false;
+				//exit();
+			}
+			if (session_status() != PHP_SESSION_ACTIVE){
+					session_start();
+				}
+			$_SESSION['user'] = false;
+   			header("Location: ". uri("login.php"));
+			//TODO : err pas connecté
+		}
+
+}
 
 
 
-
+/**
+* verifie que l'utilisateur est connecté
+* @return array|void
+*/
+function userOnly($verify=false){//:array|void|boolean
+	if (session_status() != PHP_SESSION_ACTIVE){
+		session_start();
+	}
+	// est pas defini et false
+	if(!$_SESSION["user"]){
+		if($verify){
+			return false;
+		//exit();
+		}
+		header("Location: ". uri("login.php"));
+		exit();
+	}
+	return $_SESSION["user"];
+}

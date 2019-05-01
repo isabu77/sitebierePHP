@@ -36,6 +36,16 @@ header{
 	zoom:1; /* pour interent explorer 6 et 7 */
 }
 
+.flashSuccess{
+	/*text-align:center; */
+	background-color:lightgreen;
+}
+
+.flashError{
+	/*text-align:center; */
+	background-color:lightred;
+}
+
 /* MENU */
 
 #primary_nav ul{

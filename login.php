@@ -1,39 +1,51 @@
 <?php
 require_once 'includes/connect.php';
-require_once 'includes/db.php';
+require_once 'includes/function.php';
 
 $errusername = "";
 $errpassword = "";
 $errEmail = false;
 $errMessage = "";
 
+$pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
 
 if(!empty($_POST)){
-	$email = $_POST["email"];
+	if(	isset($_POST["email"]) && !empty($_POST["email"]) &&
+		isset($_POST["password"]) && !empty($_POST["password"]) &&
+		isset($_POST["robot"]) && empty($_POST["robot"])//protection robot
+	){
+		userConnect($_POST["email"], $_POST["password"]);
+	}
+	if (!$_SESSION['user']){
+		$errusername = "class= 'danger'";
+		$errusername = "class= 'danger'";
+		$errEmail = true;
+		$errMessage = "Email ou mot de passe invalides";
+		//die('bac à sable');
+	}
+
+
+/*	$email = $_POST["email"];
 	$password = $_POST["password"];
 	if (!empty($email) && !empty($password)){
-		/* verifier couple user / mdp */
 		$sql = 'SELECT * FROM `users` WHERE `email` = ?';
 		$statement = $pdo->prepare($sql);
 		$statement->execute([$email]);
 		$user = $statement->fetch();
-		if ($user){
-			if (password_verify($password, $user['password'])){
-				$_SESSION["user"] = $user;
-					
-				$_SESSION["connect"] = true;
-				$_SESSION["email"] = $email;
-				$_SESSION["username"] = $user['name'];
-				$_SESSION["userfirstname"] = $user['prenom'];
-				header("Location: commande.php");
-				// FIN DU TRAITEMENT
-				exit();
+		if ($user && password_verify(htmlspecialchars($password), $user['password'])){
+				
+			unset($user["password"]);
+			if (session_status() != PHP_SESSION_ACTIVE){
+				session_start();
 			}
-			else{
-				$errpassword = "class= 'danger'";
-				$errEmail = true;
-				$errMessage = "Email ou mot de passe invalides";
-			}
+			$_SESSION["user"] = $user;
+			$_SESSION["connect"] = true;
+			$_SESSION["email"] = $email;
+			$_SESSION["username"] = $user['name'];
+			$_SESSION["userfirstname"] = $user['prenom'];
+			header("Location: commande.php");
+			// FIN DU TRAITEMENT
+			exit();
 		}
 		else{
 			$errusername = "class= 'danger'";
@@ -42,7 +54,6 @@ if(!empty($_POST)){
 		}
 	}
 	else{
-		/* signaler qu'il manque un champ  */
 		if (empty($username) ){
 			$errusername = "class= 'danger'";
 		}
@@ -51,7 +62,7 @@ if(!empty($_POST)){
 		}
 		$errEmail = true;
 		$errMessage = "Email ou mot de passe invalides";
-	}
+	}*/
 }
 else{
 	$sql = 'SELECT * FROM `users`';
@@ -60,7 +71,7 @@ else{
   
 	// si pas de compte, enchainer sur l'inscription 
 	if(empty($users)){
-		header("Location: inscription.php");
+		header("Location: ". uri("inscription.php"));
 		// FIN DU TRAITEMENT
 		exit();
 	}
@@ -87,6 +98,7 @@ else{
 				<form action="" method="Post">
 					<input <?= $errusername ?> type="email" name="email" placeholder="Adresse mail"  />
 					<input <?= $errpassword ?> type="password" name="password" placeholder="Mot de passe"  />
+					<input type="text" name="robot" hidden/>
 					<button type="submit">Connexion</button>
 					<label class="danger" <?= $errEmail ? ' ': 'hidden'; ?> >ERREUR ! <?= $errMessage ?></label>
 				</form>

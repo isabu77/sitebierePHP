@@ -1,4 +1,26 @@
 <h1 class="titreduhaut">Confirmation de commande</h1>
+
+<div style="background-color:red;text-align:center;"><?= (isset($_SESSION["UserError"]) ? $_SESSION["UserError"] . "<hr />":"") ?></div> 
+<div style="background-color:lightgreen;text-align:center;"><?php echo (isset($_SESSION["UserSuccess"]) ? $_SESSION["UserSuccess"]:""); unset($_SESSION["UserSuccess"]);  ?></div>
+
+<div style="background-color:red;text-align:center;"><?= (isset($_SESSION["error"]) ? $_SESSION["error"]:"") ?></div> 
+<div style="background-color:lightgreen;text-align:center;"><?php echo (isset($_SESSION["success"]) ? $_SESSION["success"]:""); unset($_SESSION["success"]);  ?></div>
+
+<?php
+	if (isset($_SESSION["UserError"])){
+		unset($_SESSION["UserError"]);
+	}
+	if (isset($_SESSION["UserSuccess"])){
+		unset($_SESSION["UserSuccess"]);
+	}
+	if (isset($_SESSION["error"])){
+		unset($_SESSION["error"]);
+	}
+	if (isset($_SESSION["success"])){
+		unset($_SESSION["success"]);
+	}
+?>
+
 <section id="commandSection">
     <table class = 'col-md-10 offset-md-1' >
     <!-- 1ere ligne : titre -->
@@ -33,9 +55,9 @@
 	<tbody>
 		<?php foreach($commande as $key => $value) : ?>
 			<tr class="row">
-				<td class="col-3"><?= $value[1] ?></td>
-				<td class="col-2"><?= number_format($value[4], 2, ',', '.'); ?>€</td>
-				<td class="col-2"><?= number_format($value[4]*$tva, 2, ',', '.');  ?>€</td>
+				<td class="col-3"><?= $value['nom'] ?></td>
+				<td class="col-2"><?= number_format($value['prixht'], 2, ',', '.'); ?>€</td>
+				<td class="col-2"><?= number_format($value['prixht']*$tva, 2, ',', '.');  ?>€</td>
 				<td class="col-2"><?= $value[5] ?></td>
 				<td class="col-3"><?= number_format($value[6]*$tva, 2, ',', '.'); ?>€</td>
 			</tr>

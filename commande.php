@@ -2,11 +2,11 @@
 require_once 'includes/db.php';
 require_once 'includes/connect.php';
 
-  if(!empty($currentUser)){
+if(!empty($currentUser)){
     $iduser = $currentUser["id"];
     $prenom = $currentUser["prenom"];
+    $username = $currentUser["name"];
     $email = $currentUser["email"];
-    $password = $currentUser["password"];
     $numero = $currentUser["numrue"];
     $rue = $currentUser["rue"];
     $cp = $currentUser["codepostal"];
@@ -15,7 +15,7 @@ require_once 'includes/connect.php';
     $tel = $currentUser["tel"];
   }
   else{
-    header("Location: identification.php");
+    header("Location: ". uri("login.php"));
     exit();
   }
 ?>
@@ -23,7 +23,7 @@ require_once 'includes/connect.php';
 <?php 
 include 'includes/header.php';
 ?>
-	<form method="post" action="<?= uri("includes/calculPrice.php") ?>" id="formPurchase">
+	<form method="post" action="<?= uri("calculPrice.php") ?>" id="formPurchase">
           <div class = "mb-2 form-group">
             <h2>Identification</h2>
           </div>
@@ -46,7 +46,7 @@ include 'includes/header.php';
           
           <div class = "row mb-2">
             <input type="tel" name="tel" value='<?= ($tel) ? $tel:''; ?>' placeholder="*Tél" required class="form-control col-md-2 offset-md-1">
-            <input type="text" name="email" value='<?= ($email) ? $email:''; ?>' placeholder="*E-mail" required class="form-control col-md-8 offset-md-1">
+            <input type="text" name="email" value='<?= ($email) ? $email:''; ?>' placeholder="*E-mail" disabled class="form-control col-md-8 offset-md-1">
           </div>
           <!-- TABLEAU DE COMMANDE -->
           <div class = "mb-2 form-group">
@@ -65,10 +65,10 @@ include 'includes/header.php';
             <tbody>
 <?php  for ($i=0; $i < count($beerArray) ; $i++):?>
               <tr class="row">
-                  <td class="col"><?= (String)$beerArray[$i][1]?></td> <!-- Nom bière-->
-                  <td class="col" ><input class="col-12" readonly type="text" id="ht<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4],2,',',' ').'€';?>"></td> <!-- prix HT -->
-                  <td class="col" ><input class="col-12" readonly type="text" id="ttc<?= (String)$beerArray[$i][0]?>" value="<?=(String)number_format($beerArray[$i][4]*1.2,2,',',' ').'€';?>"></td> <!-- prix TTC-->
-                  <td class="col" ><input class="col-12" type="number" name="qty[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i][0]?>,<?= (String)$beerArray[$i][4]?>);"></td> <!-- quantité-->
+                  <td class="col"><?= (String)$beerArray[$i]["nom"]?></td> <!-- Nom bière-->
+                  <td class="col" ><input class="col-12" readonly type="text" id="ht<?= (String)$beerArray[$i]['id']?>" value="<?=(String)number_format($beerArray[$i]['prixht'],2,',',' ').'€';?>"></td> <!-- prix HT -->
+                  <td class="col" ><input class="col-12" readonly type="text" id="ttc<?= (String)$beerArray[$i]['id']?>" value="<?=(String)number_format($beerArray[$i]['prixht']*1.2,2,',',' ').'€';?>"></td> <!-- prix TTC-->
+                  <td class="col" ><input class="col-12" type="number" name="qty[]" value=0 min= 0 oninput="quantitebiere(this,<?= (String)$beerArray[$i]['id']?>,<?= (String)$beerArray[$i]['prixht']?>);"></td> <!-- quantité-->
               </tr>
 <?php  endfor; ?>
             </tbody>
